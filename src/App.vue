@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import { projectStore, useCounterStore } from './stores/counter';
+import { storeToRefs } from 'pinia';
 
 const store = projectStore();
- 
+const {getProjectById} = storeToRefs(store)
 </script>
  
 <template>
@@ -21,7 +22,8 @@ const store = projectStore();
         </li>
        
       </ul>
-      {{ store.projects }}
+      store: {{ store.projects }}
+      getter: {{ getProjectById("PJ002835") }}
     </div>
   </header>
  

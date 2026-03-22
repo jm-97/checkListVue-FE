@@ -13,7 +13,9 @@ export const projectStore = defineStore('projects', {
     ]
   }),
   getters: {
-    byPJName: (state: State) => state,
+    getProjectById: (state: State) => {
+      return (projectId: string) => state.projects.find((project) => projectId === projectId)
+    },
   },
   actions: {
     addProject(project: Project) {
