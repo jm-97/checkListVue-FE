@@ -1,11 +1,8 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-const projects = [
-  { "projectId": "PJ002835", "name": "CZSK Remittance Additional INformation" },
-  { "projectId": "PJ003316", "name": "Sepa Rulebook" },
-  { "projectId": "PJ002361", "name": "CZSKSI STO IP" }
-]
+import { projectStore, useCounterStore } from './stores/counter';
+
+const store = projectStore();
  
 </script>
  
@@ -19,11 +16,12 @@ const projects = [
         <li>
           <RouterLink to="/create">Create a new Project</RouterLink>
         </li>
-        <li v-for="project in projects" :key="project.projectId">
+        <li v-for="project in store.projects" :key="project.projectId">
           <RouterLink :to="project.projectId">{{project.projectId}} {{ project.name }}</RouterLink>
         </li>
        
       </ul>
+      {{ store.projects }}
     </div>
   </header>
  
