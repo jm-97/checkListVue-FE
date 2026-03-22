@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { reactive, watch } from "vue"
-import type { Stati } from "../interfaces/stati";
+import type { Stati } from "../interfaces/stati.ts";
 const props = defineProps<Stati>()
 const emit = defineEmits(['currentStatus'])
  

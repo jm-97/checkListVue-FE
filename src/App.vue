@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import { projectStore, useCounterStore } from './stores/counter';
+import { projectStore } from './stores/counter';
 import { storeToRefs } from 'pinia';
 
 const store = projectStore();
