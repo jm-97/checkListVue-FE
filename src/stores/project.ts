@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+
 import { defineStore } from 'pinia'
 import type { Project } from '@/interfaces/projects'
 import type { State } from '@/interfaces/state'
