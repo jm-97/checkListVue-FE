@@ -1,4 +1,4 @@
-<script setup>
+<script setup  lang="ts">
 import { watch, reactive } from 'vue';
 import SelectItem from '../components/SelectItem.vue'
 let fases = ["PRE-Release", " During Release", "POST Release"]
@@ -51,22 +51,22 @@ watch(newStatus, (nuovo)=>{
   <div class="about">
     {{ fases[0] }}
     <ul>
-      <li v-for="activity in activitiesPreReleases" :key="activity.id">
-        <SelectItem :stati="stati" :preSelectedStatus="preSelectedStatus" @currentStatus="(status) => newStatus.value=status"></SelectItem> {{ activity }}
+      <li v-for="activity in activitiesPreReleases">
+        <SelectItem :stati="stati" :preSelectedStatus="preSelectedStatus" @currentStatus="(status) => Object.assign(newStatus, status)"></SelectItem> {{ activity }}
       </li>
     </ul>
  
     {{ fases[1] }}
     <ul>
-      <li v-for="activity in activitiesDuringReleases" :key="activity.id">
-        <SelectItem :stati="stati" :preSelectedStatus="preSelectedStatus" @currentStatus="(status) => newStatus.value=status"></SelectItem> {{ activity }}
+      <li v-for="activity in activitiesDuringReleases">
+        <SelectItem :stati="stati" :preSelectedStatus="preSelectedStatus" @currentStatus="(status) => Object.assign(newStatus, status)"></SelectItem> {{ activity }}
       </li>
     </ul>
  
     {{ fases[2] }}
     <ul>
-      <li v-for="activity in activitiesPostReleases" :key="activity.id">
-        <SelectItem :stati="stati" :preSelectedStatus="preSelectedStatus" @currentStatus="(status) => newStatus.value=status"></SelectItem> {{ activity }}
+      <li v-for="activity in activitiesPostReleases">
+        <SelectItem :stati="stati" :preSelectedStatus="preSelectedStatus" @currentStatus="(status) => Object.assign(newStatus, status)"></SelectItem> {{ activity }}
       </li>
     </ul>
   </div>
