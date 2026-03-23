@@ -19,7 +19,7 @@ export const projectStore = defineStore('projects', {
   },
   actions: {
     addProject(project: Project) {
-      this.projects = [...this.projects, project]
+      this.projects.push(project)
     },
   },
 })

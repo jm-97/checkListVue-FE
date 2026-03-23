@@ -1,18 +1,13 @@
 <script setup lang="ts">
-import { reactive, watch } from 'vue'
 import Creation from '../components/TheCreation.vue'
 import type { Project } from '@/interfaces/projects'
-const newPJ = reactive({
-  projectId: '',
-  name: '',
-})
-watch(newPJ, (nuovo) => {
-  console.log('emitter', nuovo)
-})
+import { projectStore } from '@/stores/project'
+
+const store = projectStore()
 </script>
 
 <template>
   <main>
-    <Creation @newProject="(project: Project) => Object.assign(newPJ, project)" />
+    <Creation @newProject="(project: Project) => store.addProject(project)" />
   </main>
 </template>
