@@ -2,9 +2,14 @@
 import { RouterLink, RouterView } from 'vue-router'
 import { projectStore } from './stores/project'
 import { storeToRefs } from 'pinia'
+import type { Project } from './interfaces/projects'
 
 const store = projectStore()
 const { getProjectById } = storeToRefs(store)
+
+function remove(project:Project){
+  store.removeProject(project)
+}
 </script>
 
 <template>
@@ -19,7 +24,7 @@ const { getProjectById } = storeToRefs(store)
         </li>
         <li v-for="project in store.projects" :key="project.projectId">
           <RouterLink :to="project.projectId"
-            >{{ project.projectId }} {{ project.name }}</RouterLink
+            >{{ project.projectId }} {{ project.name }} <i class="pi pi-trash" @click="remove(project)" style="color: red"></i> </RouterLink
           >
         </li>
       </ul>

@@ -21,5 +21,10 @@ export const projectStore = defineStore('projects', {
     addProject(project: Project) {
       this.projects.push(project)
     },
+    removeProject(project: Project) {
+      console.log(this.projects.splice(this.projects.findIndex(projectStored => projectStored.projectId === project.projectId), 1))
+      console.log(this.projects)
+
+    },
   },
 })
