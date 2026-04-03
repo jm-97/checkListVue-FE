@@ -21,43 +21,67 @@ watch(newStatus, (nuovo) => {
 })
 </script>
 <template>
-  <div class="about">
-    {{ fases[0] }}
-    <ul>
-      <li v-for="(activity, index) in getCurrentProjectDetails().activitiesPreReleases" :key="index">
-        <SelectItem
-          :stati="stati"
-          :preSelectedStatus="preSelectedStatus"
-          @currentStatus="(status) => Object.assign(newStatus, status)"
-        ></SelectItem>
-        {{ activity }}
-      </li>
-    </ul>
+  <div class="container">
+    <div class="column">
+      <h1>Sandbox</h1>
+      {{ fases[0] }}
+      <ul>
+        <li v-for="(activity, index) in getCurrentProjectDetails().activitiesPreReleases" :key="index">
+          <SelectItem :stati="stati" :preSelectedStatus="preSelectedStatus"
+            @currentStatus="(status) => Object.assign(newStatus, status)"></SelectItem>
+          {{ activity }}
+        </li>
+      </ul>
 
-    {{ fases[1] }}
-    <ul>
-      <li v-for="(activity, index) in getCurrentProjectDetails().activitiesDuringReleases" :key="index">
-        <SelectItem
-          :stati="stati"
-          :preSelectedStatus="preSelectedStatus"
-          @currentStatus="(status) => Object.assign(newStatus, status)"
-        ></SelectItem>
-        {{ activity }}
-      </li>
-    </ul>
+      {{ fases[1] }}
+      <ul>
+        <li v-for="(activity, index) in getCurrentProjectDetails().activitiesDuringReleases" :key="index">
+          <SelectItem :stati="stati" :preSelectedStatus="preSelectedStatus"
+            @currentStatus="(status) => Object.assign(newStatus, status)"></SelectItem>
+          {{ activity }}
+        </li>
+      </ul>
 
-    {{ fases[2] }}
-    <ul>
-      <li v-for="(activity, index) in (getCurrentProjectDetails().activitiesPostReleases)" :key="index">
-        <SelectItem
-          :stati="stati"
-          :preSelectedStatus="preSelectedStatus"
-          @currentStatus="(status) => Object.assign(newStatus, status)"
-        ></SelectItem>
-        {{ activity }}
-      </li>
-    </ul>
+      {{ fases[2] }}
+      <ul>
+        <li v-for="(activity, index) in (getCurrentProjectDetails().activitiesPostReleases)" :key="index">
+          <SelectItem :stati="stati" :preSelectedStatus="preSelectedStatus"
+            @currentStatus="(status) => Object.assign(newStatus, status)"></SelectItem>
+          {{ activity }}
+        </li>
+      </ul>
+    </div>
+    <div class="column">
+      <h1>Real</h1>
+      {{ fases[0] }}
+      <ul>
+        <li v-for="(activity, index) in getCurrentProjectDetails().activitiesPreReleases" :key="index">
+          <SelectItem :stati="stati" :preSelectedStatus="preSelectedStatus"
+            @currentStatus="(status) => Object.assign(newStatus, status)"></SelectItem>
+          {{ activity }}
+        </li>
+      </ul>
+
+      {{ fases[1] }}
+      <ul>
+        <li v-for="(activity, index) in getCurrentProjectDetails().activitiesDuringReleases" :key="index">
+          <SelectItem :stati="stati" :preSelectedStatus="preSelectedStatus"
+            @currentStatus="(status) => Object.assign(newStatus, status)"></SelectItem>
+          {{ activity }}
+        </li>
+      </ul>
+
+      {{ fases[2] }}
+      <ul>
+        <li v-for="(activity, index) in (getCurrentProjectDetails().activitiesPostReleases)" :key="index">
+          <SelectItem :stati="stati" :preSelectedStatus="preSelectedStatus"
+            @currentStatus="(status) => Object.assign(newStatus, status)"></SelectItem>
+          {{ activity }}
+        </li>
+      </ul>
+    </div>
   </div>
+
 </template>
 
 <style>
@@ -65,5 +89,19 @@ watch(newStatus, (nuovo) => {
   .about {
     min-height: 100vh;
   }
+}
+
+.container {
+  display: flex;
+  gap: 10px;
+  /* space between columns */
+  width: 100%;
+}
+
+.column {
+  flex: 1;
+  width: 50%;
+  /* equal width columns */
+  padding: 10px;
 }
 </style>
