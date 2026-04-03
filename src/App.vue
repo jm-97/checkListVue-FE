@@ -28,7 +28,6 @@ function remove(project:Project){
           >
         </li>
       </ul>
-      store: {{ store.projects }} getter: {{ getProjectById('PJ002835') }}
     </div>
   </header>
 
