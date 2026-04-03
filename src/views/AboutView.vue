@@ -3,6 +3,7 @@ import { watch, reactive } from 'vue'
 import SelectItem from '../components/SelectItem.vue'
 import { projectStore } from '@/stores/project'
 import { storeToRefs } from 'pinia';
+import type { singleStato, Stato } from '@/interfaces/stati';
 const fases = ['PRE-Release', ' During Release', 'POST Release']
 const store = projectStore();
 const { getCurrentProjectDetails } = storeToRefs(store)
@@ -13,6 +14,13 @@ const props = defineProps({
 const stati = store.getStati();
 
 const preSelectedStatus = { value: 'non_completato', color: 'red' }
+function preSelectedStatusFinder(status: singleStato): Stato {
+  const stati: Stato[] = store.getStati()
+  if (status == "completato") {
+    console.log(stati.find(stato => stato.value == status)?.value)
+  }
+  return stati.find(stato => stato.value == status) as Stato
+}
 const newStatus = reactive({})
 watch(newStatus, (nuovo) => {
 
@@ -29,27 +37,27 @@ watch(() => props.id, (newVal, oldVal) => {
       {{ fases[0] }}
       <ul>
         <li v-for="(activity, index) in getCurrentProjectDetails().activitiesPreReleases" :key="index">
-          <SelectItem :stati="stati" :preSelectedStatus="preSelectedStatus"
+          <SelectItem :stati="stati" :preSelectedStatus="preSelectedStatusFinder(activity.stato)!"
             @currentStatus="(status) => Object.assign(newStatus, status)"></SelectItem>
-          {{ activity }}
+          {{ activity.text }}
         </li>
       </ul>
 
       {{ fases[1] }}
       <ul>
         <li v-for="(activity, index) in getCurrentProjectDetails().activitiesDuringReleases" :key="index">
-          <SelectItem :stati="stati" :preSelectedStatus="preSelectedStatus"
+          <SelectItem :stati="stati" :preSelectedStatus="preSelectedStatusFinder(activity.stato)!"
             @currentStatus="(status) => Object.assign(newStatus, status)"></SelectItem>
-          {{ activity }}
+          {{ activity.text }}
         </li>
       </ul>
 
       {{ fases[2] }}
       <ul>
         <li v-for="(activity, index) in (getCurrentProjectDetails().activitiesPostReleases)" :key="index">
-          <SelectItem :stati="stati" :preSelectedStatus="preSelectedStatus"
+          <SelectItem :stati="stati" :preSelectedStatus="preSelectedStatusFinder(activity.stato)!"
             @currentStatus="(status) => Object.assign(newStatus, status)"></SelectItem>
-          {{ activity }}
+          {{ activity.text }}
         </li>
       </ul>
     </div>
@@ -58,27 +66,27 @@ watch(() => props.id, (newVal, oldVal) => {
       {{ fases[0] }}
       <ul>
         <li v-for="(activity, index) in getCurrentProjectDetails().activitiesPreReleases" :key="index">
-          <SelectItem :stati="stati" :preSelectedStatus="preSelectedStatus"
+          <SelectItem :stati="stati" :preSelectedStatus="preSelectedStatusFinder(activity.stato)!"
             @currentStatus="(status) => Object.assign(newStatus, status)"></SelectItem>
-          {{ activity }}
+          {{ activity.text }}
         </li>
       </ul>
 
       {{ fases[1] }}
       <ul>
         <li v-for="(activity, index) in getCurrentProjectDetails().activitiesDuringReleases" :key="index">
-          <SelectItem :stati="stati" :preSelectedStatus="preSelectedStatus"
+          <SelectItem :stati="stati" :preSelectedStatus="preSelectedStatusFinder(activity.stato)!"
             @currentStatus="(status) => Object.assign(newStatus, status)"></SelectItem>
-          {{ activity }}
+          {{ activity.text }}
         </li>
       </ul>
 
       {{ fases[2] }}
       <ul>
         <li v-for="(activity, index) in (getCurrentProjectDetails().activitiesPostReleases)" :key="index">
-          <SelectItem :stati="stati" :preSelectedStatus="preSelectedStatus"
+          <SelectItem :stati="stati" :preSelectedStatus="preSelectedStatusFinder(activity.stato)!"
             @currentStatus="(status) => Object.assign(newStatus, status)"></SelectItem>
-          {{ activity }}
+          {{ activity.text }}
         </li>
       </ul>
     </div>

@@ -1,3 +1,5 @@
+import type { singleStato, Stato } from "./stati";
+
 export interface RootInterface {
   '$schema': string;
   posts: Post[];
@@ -14,9 +16,9 @@ export interface Project {
 }
 
 export interface Sandbox {
-  activitiesPreReleases: string[];
-  activitiesDuringReleases: string[];
-  activitiesPostReleases: string[];
+  activitiesPreReleases: Activity[];
+  activitiesDuringReleases: Activity[];
+  activitiesPostReleases: Activity[];
 }
 
 export interface Profile {
@@ -33,4 +35,8 @@ export interface Post {
   id: string;
   title: string;
   views: number;
+}
+export interface Activity {
+  text: string,
+  stato: singleStato
 }
