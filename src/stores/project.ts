@@ -1,7 +1,8 @@
 
 import { defineStore } from 'pinia'
-import type { Project } from '@/interfaces/projects'
+import type { Project, Sandbox } from '@/interfaces/projects'
 import type { State } from '@/interfaces/state'
+import { getPJDetails } from '@/services/project.services'
 
 export const projectStore = defineStore('projects', {
 
@@ -62,10 +63,7 @@ export const projectStore = defineStore('projects', {
       return (id: string) => state.projects.find((project) => project.id === id)
     },
     getCurrentProjectDetails: (state: State) => {
-      return () => {
-        return state.currentProjectDetails
-      }
-
+      return () => state.currentProjectDetails
     },
   },
   actions: {
@@ -75,5 +73,20 @@ export const projectStore = defineStore('projects', {
     removeProject(project: Project) {
       this.projects.splice(this.projects.findIndex(projectStored => projectStored.id === project.id), 1)
     },
+    getProjectSuccess(data: Project) {
+      console.log("success")
+      this.currentProjectDetails = data.sandbox!;
+    },
+    getProjectError(message: any) {
+      console.log(message)
+    },
+    async getProjectDetails(id: string) {
+      try {
+        const data = await getPJDetails(id)
+        this.getProjectSuccess(data)
+      } catch (err: any) {
+        this.getProjectError(err.message)
+      }
+    }
   },
 })

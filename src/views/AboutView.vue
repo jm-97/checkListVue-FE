@@ -7,7 +7,9 @@ const fases = ['PRE-Release', ' During Release', 'POST Release']
 const store = projectStore();
 const { getCurrentProjectDetails } = storeToRefs(store)
 
-
+const props = defineProps({
+  id: String
+})
 const stati = [
   { value: 'non_completato', color: 'red' },
   { value: 'non_necessario', color: 'brown' },
@@ -18,6 +20,10 @@ const preSelectedStatus = { value: 'non_completato', color: 'red' }
 const newStatus = reactive({})
 watch(newStatus, (nuovo) => {
 
+})
+watch(() => props.id, (newVal, oldVal) => {
+  console.log('id cambiato:', newVal)
+  store.getProjectDetails(newVal!)
 })
 </script>
 <template>

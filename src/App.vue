@@ -6,11 +6,9 @@ import type { Project } from './interfaces/projects'
 import { getPJDetails } from './services/project.services'
 
 const store = projectStore()
-const { getProjectById } = storeToRefs(store)
 
 function remove(project: Project) {
   store.removeProject(project)
-  getPJDetails("PJ002835").then(res => console.log(res))
 }
 </script>
 
