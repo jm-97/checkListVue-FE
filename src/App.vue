@@ -3,12 +3,14 @@ import { RouterLink, RouterView } from 'vue-router'
 import { projectStore } from './stores/project'
 import { storeToRefs } from 'pinia'
 import type { Project } from './interfaces/projects'
+import { getUser } from './services/project.services'
 
 const store = projectStore()
 const { getProjectById } = storeToRefs(store)
 
-function remove(project:Project){
+function remove(project: Project) {
   store.removeProject(project)
+  getUser().then(res => console.log(res))
 }
 </script>
 
@@ -23,9 +25,8 @@ function remove(project:Project){
           <RouterLink to="/create">Create a new Project</RouterLink>
         </li>
         <li v-for="project in store.projects" :key="project.projectId">
-          <RouterLink :to="project.projectId"
-            >{{ project.projectId }} {{ project.name }} <i class="pi pi-trash" @click="remove(project)" style="color: red"></i> </RouterLink
-          >
+          <RouterLink :to="project.projectId">{{ project.projectId }} {{ project.name }} <i class="pi pi-trash"
+              @click="remove(project)" style="color: red"></i> </RouterLink>
         </li>
       </ul>
     </div>
