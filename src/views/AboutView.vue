@@ -20,7 +20,7 @@ watch(newStatus, (nuovo) => {
 watch(() => props.id, (newVal, oldVal) => {
   console.log('id cambiato:', newVal)
   store.getProjectDetails(newVal!)
-})
+}, { immediate: true })
 </script>
 <template>
   <div class="container">
