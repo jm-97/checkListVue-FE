@@ -6,7 +6,7 @@ import type { Project } from './interfaces/projects'
 import { getPJDetails } from './services/project.services'
 
 const store = projectStore()
-
+store.getStatiOverall()
 function remove(project: Project) {
   store.removeProject(project)
 }

@@ -1,4 +1,5 @@
 import type { Project } from "./projects";
+import type { Stato } from "./stati";
 
 export interface State {
   projects: Project[],
@@ -6,5 +7,6 @@ export interface State {
     activitiesPreReleases: string[],
     activitiesDuringReleases: string[],
     activitiesPostReleases: string[]
-  }
+  },
+  stato: Stato[]
 }

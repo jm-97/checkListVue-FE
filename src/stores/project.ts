@@ -2,7 +2,8 @@
 import { defineStore } from 'pinia'
 import type { Project, Sandbox } from '@/interfaces/projects'
 import type { State } from '@/interfaces/state'
-import { getPJDetails } from '@/services/project.services'
+import { getPJDetails, getStatiOverall } from '@/services/project.services'
+import type { Stato } from '@/interfaces/stati'
 
 export const projectStore = defineStore('projects', {
 
@@ -56,7 +57,8 @@ export const projectStore = defineStore('projects', {
         'Upload degli swagger su confluence per ogni cambiamento',
         'Eliminazione dei feature branch',
       ]
-    }
+    },
+    stato: []
   }),
   getters: {
     getProjectById: (state: State) => {
@@ -65,6 +67,9 @@ export const projectStore = defineStore('projects', {
     getCurrentProjectDetails: (state: State) => {
       return () => state.currentProjectDetails
     },
+    getStati: (state: State) => {
+      return () => state.stato
+    }
   },
   actions: {
     addProject(project: Project) {
@@ -74,7 +79,6 @@ export const projectStore = defineStore('projects', {
       this.projects.splice(this.projects.findIndex(projectStored => projectStored.id === project.id), 1)
     },
     getProjectSuccess(data: Project) {
-      console.log("success")
       this.currentProjectDetails = data.sandbox!;
     },
     getProjectError(message: any) {
@@ -87,6 +91,17 @@ export const projectStore = defineStore('projects', {
       } catch (err: any) {
         this.getProjectError(err.message)
       }
-    }
+    },
+    async getStatiOverall() {
+      try {
+        const data = await getStatiOverall()
+        this.getStatiSuccess(data)
+      } catch (err: any) {
+        this.getProjectError(err.message)
+      }
+    },
+    getStatiSuccess(data: Stato[]) {
+      this.stato = data;
+    },
   },
 })

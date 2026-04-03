@@ -10,12 +10,8 @@ const { getCurrentProjectDetails } = storeToRefs(store)
 const props = defineProps({
   id: String
 })
-const stati = [
-  { value: 'non_completato', color: 'red' },
-  { value: 'non_necessario', color: 'brown' },
-  { value: 'ongoing', color: 'blue' },
-  { value: 'completato', color: 'green' },
-]
+const stati = store.getStati();
+
 const preSelectedStatus = { value: 'non_completato', color: 'red' }
 const newStatus = reactive({})
 watch(newStatus, (nuovo) => {
