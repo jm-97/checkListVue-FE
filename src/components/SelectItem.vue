@@ -12,21 +12,13 @@ function changeColor(event: Event) {
   currentStatus.value = target.value
 }
 watch(currentStatus, (newStatus) => {
-  // yes, console.log() is a side effect
-
   emit('currentStatus', newStatus)
-  console.log(newStatus)
 })
 </script>
 
 <template>
   <select name="stat" @change="changeColor($event)" :style="{ color: currentStatus.color }">
-    <option
-      v-for="(stato, index) in props.stati"
-      :key="index"
-      :value="stato.value"
-      :style="{ color: stato.color }"
-    >
+    <option v-for="(stato, index) in props.stati" :key="index" :value="stato.value" :style="{ color: stato.color }">
       {{ stato.value }}
     </option>
   </select>

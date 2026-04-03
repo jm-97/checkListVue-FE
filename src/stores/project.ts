@@ -7,9 +7,9 @@ export const projectStore = defineStore('projects', {
 
   state: (): State => ({
     projects: [
-      { "projectId": "PJ002835", "name": "CZSK Remittance Additional INformation" },
-      { "projectId": "PJ003316", "name": "Sepa Rulebook" },
-      { "projectId": "PJ002361", "name": "CZSKSI STO IP" }
+      { "id": "PJ002835", "name": "CZSK Remittance Additional INformation" },
+      { "id": "PJ003316", "name": "Sepa Rulebook" },
+      { "id": "PJ002361", "name": "CZSKSI STO IP" }
     ],
     currentProjectDetails: {
       activitiesPreReleases: [
@@ -59,7 +59,7 @@ export const projectStore = defineStore('projects', {
   }),
   getters: {
     getProjectById: (state: State) => {
-      return (projectId: string) => state.projects.find((project) => project.projectId === projectId)
+      return (id: string) => state.projects.find((project) => project.id === id)
     },
     getCurrentProjectDetails: (state: State) => {
       return () => {
@@ -73,7 +73,7 @@ export const projectStore = defineStore('projects', {
       this.projects.push(project)
     },
     removeProject(project: Project) {
-      this.projects.splice(this.projects.findIndex(projectStored => projectStored.projectId === project.projectId), 1)
+      this.projects.splice(this.projects.findIndex(projectStored => projectStored.id === project.id), 1)
     },
   },
 })

@@ -3,34 +3,22 @@ import type { Project } from '@/interfaces/projects'
 
 const emit = defineEmits(['newProject'])
 const form: Project = {
-  projectId: '',
+  id: '',
   name: '',
 }
-let projectId = ''
+let id = ''
 let name = ''
 function submit() {
-  emit('newProject', { projectId, name })
+  emit('newProject', { id, name })
 }
 </script>
 
 <template>
   <h1>Create a new project</h1>
 
-  <input
-    type="text"
-    v-model="projectId"
-    name="id"
-    id="id"
-    placeholder="insert the ProjectId: PJXXXXXX"
-  />
+  <input type="text" v-model="id" name="id" id="id" placeholder="insert the id: PJXXXXXX" />
   <br />
-  <input
-    type="text"
-    v-model="name"
-    name="name"
-    id="name"
-    placeholder="insert the Name of the Project"
-  />
+  <input type="text" v-model="name" name="name" id="name" placeholder="insert the Name of the Project" />
   <br />
   <button @click="submit">create project</button>
 </template>
