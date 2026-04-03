@@ -17,7 +17,7 @@ const stati = [
 const preSelectedStatus = { value: 'non_completato', color: 'red' }
 const newStatus = reactive({})
 watch(newStatus, (nuovo) => {
-  console.log('emitter', nuovo)
+
 })
 </script>
 <template>

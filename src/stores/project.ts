@@ -73,9 +73,7 @@ export const projectStore = defineStore('projects', {
       this.projects.push(project)
     },
     removeProject(project: Project) {
-      console.log(this.projects.splice(this.projects.findIndex(projectStored => projectStored.projectId === project.projectId), 1))
-      console.log(this.projects)
-
+      this.projects.splice(this.projects.findIndex(projectStored => projectStored.projectId === project.projectId), 1)
     },
   },
 })
