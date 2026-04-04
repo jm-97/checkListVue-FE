@@ -3,6 +3,6 @@ import type { Stato } from "./stati";
 
 export interface State {
   projects: Project[],
-  currentProjectDetails: Sandbox,
+  currentProjectDetails: Project,
   stato: Stato[]
 }

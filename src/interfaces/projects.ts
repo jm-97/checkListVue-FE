@@ -10,11 +10,13 @@ export interface RootInterface {
 
 export interface Project {
   id: string;
-  name: string
-  sandbox?: Sandbox;
-  real?: Sandbox;
+  name: string;
+  environments?: Environment[];
 }
-
+interface Environment {
+  name: string;
+  activities: Sandbox
+}
 export interface Sandbox {
   activitiesPreReleases: Activity[];
   activitiesDuringReleases: Activity[];

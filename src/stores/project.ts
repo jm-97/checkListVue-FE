@@ -14,9 +14,9 @@ export const projectStore = defineStore('projects', {
       { "id": "PJ002361", "name": "CZSKSI STO IP" }
     ],
     currentProjectDetails: {
-      activitiesPreReleases: [],
-      activitiesDuringReleases: [],
-      activitiesPostReleases: []
+      id: "",
+      name: "",
+      environments: []
     },
     stato: []
   }),
@@ -39,7 +39,7 @@ export const projectStore = defineStore('projects', {
       this.projects.splice(this.projects.findIndex(projectStored => projectStored.id === project.id), 1)
     },
     getProjectSuccess(data: Project) {
-      this.currentProjectDetails = data.sandbox!;
+      this.currentProjectDetails = data!;
     },
     getProjectError(message: any) {
       console.log(message)
