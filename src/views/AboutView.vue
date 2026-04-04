@@ -16,9 +16,7 @@ const stati = store.getStati();
 const preSelectedStatus = { value: 'non_completato', color: 'red' }
 function preSelectedStatusFinder(status: singleStato): Stato {
   const stati: Stato[] = store.getStati()
-  if (status == "completato") {
-    console.log(stati.find(stato => stato.value == status)?.value)
-  }
+
   return stati.find(stato => stato.value == status) as Stato
 }
 const newStatus = reactive({})
@@ -26,7 +24,6 @@ watch(newStatus, (nuovo) => {
 
 })
 watch(() => props.id, (newVal, oldVal) => {
-  console.log('id cambiato:', newVal)
   store.getProjectDetails(newVal!)
 }, { immediate: true })
 </script>
