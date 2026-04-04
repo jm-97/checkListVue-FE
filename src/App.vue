@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import { projectStore } from './stores/project'
-import { storeToRefs } from 'pinia'
 import type { Project } from './interfaces/projects'
-import { getPJDetails } from './services/project.services'
 
 const store = projectStore()
 store.getStatiOverall()

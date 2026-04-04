@@ -1,8 +1,7 @@
-import type { singleStato, Stato } from "./stati";
+import type { singleStato } from "./stati";
 
 export interface RootInterface {
   '$schema': string;
-  comments: Comment[];
   projects: Project[];
 }
 

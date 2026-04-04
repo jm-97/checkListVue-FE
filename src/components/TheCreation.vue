@@ -1,11 +1,6 @@
 <script setup lang="ts">
-import type { Project } from '@/interfaces/projects'
 
 const emit = defineEmits(['newProject'])
-const form: Project = {
-  id: '',
-  name: '',
-}
 let id = ''
 let name = ''
 function submit() {

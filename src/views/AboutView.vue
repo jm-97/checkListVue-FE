@@ -12,7 +12,6 @@ const props = defineProps({
 })
 const stati = store.getStati();
 
-const preSelectedStatus = { value: 'non_completato', color: 'red' }
 function preSelectedStatusFinder(status: singleStato): Stato {
   const stati: Stato[] = store.getStati()
 
