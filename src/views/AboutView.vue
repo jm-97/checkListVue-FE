@@ -4,7 +4,6 @@ import SelectItem from '../components/SelectItem.vue'
 import { projectStore } from '@/stores/project'
 import { storeToRefs } from 'pinia';
 import type { singleStato, Stato } from '@/interfaces/stati';
-const fases = ['PRE-Release', ' During Release', 'POST Release']
 const store = projectStore();
 const { getCurrentProjectDetails } = storeToRefs(store)
 
@@ -30,33 +29,17 @@ watch(() => props.id, (newVal, oldVal) => {
 <template>
   <div class="container">
     <div class="column" v-for="(env, indice) in getCurrentProjectDetails().environments" :key="indice">
-      <h1>{{ env.name }}</h1>
-      {{ fases[0] }}
-      <ul>
-        <li v-for="(activity, index) in env.activities.activitiesPreReleases" :key="index">
-          <SelectItem :stati="stati" :preSelectedStatus="preSelectedStatusFinder(activity.stato)!"
-            @currentStatus="(status) => Object.assign(newStatus, status)"></SelectItem>
-          {{ activity.text }}
-        </li>
-      </ul>
-
-      {{ fases[1] }}
-      <ul>
-        <li v-for="(activity, index) in env.activities.activitiesDuringReleases" :key="index">
-          <SelectItem :stati="stati" :preSelectedStatus="preSelectedStatusFinder(activity.stato)!"
-            @currentStatus="(status) => Object.assign(newStatus, status)"></SelectItem>
-          {{ activity.text }}
-        </li>
-      </ul>
-
-      {{ fases[2] }}
-      <ul>
-        <li v-for="(activity, index) in env.activities.activitiesPostReleases" :key="index">
-          <SelectItem :stati="stati" :preSelectedStatus="preSelectedStatusFinder(activity.stato)!"
-            @currentStatus="(status) => Object.assign(newStatus, status)"></SelectItem>
-          {{ activity.text }}
-        </li>
-      </ul>
+      <h1>{{ env.name }}</h1><!--Sandbox-->
+      <div v-for="(fase, i) in env.fases" :key="i">
+        {{ fase.name }}
+        <ul>
+          <li v-for="(activity, index) in fase.activity" :key="index">
+            <SelectItem :stati="stati" :preSelectedStatus="preSelectedStatusFinder(activity.stato)!"
+              @currentStatus="(status) => Object.assign(newStatus, status)"></SelectItem>
+            {{ activity.text }}
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 

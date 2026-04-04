@@ -2,9 +2,7 @@ import type { singleStato, Stato } from "./stati";
 
 export interface RootInterface {
   '$schema': string;
-  posts: Post[];
   comments: Comment[];
-  profile: Profile;
   projects: Project[];
 }
 
@@ -15,29 +13,14 @@ export interface Project {
 }
 interface Environment {
   name: string;
-  activities: Sandbox
-}
-export interface Sandbox {
-  activitiesPreReleases: Activity[];
-  activitiesDuringReleases: Activity[];
-  activitiesPostReleases: Activity[];
+  fases: Fases[]
 }
 
-export interface Profile {
+interface Fases {
   name: string;
+  activity: Activity[]
 }
 
-export interface Comment {
-  id: string;
-  text: string;
-  postId: string;
-}
-
-export interface Post {
-  id: string;
-  title: string;
-  views: number;
-}
 export interface Activity {
   text: string,
   stato: singleStato

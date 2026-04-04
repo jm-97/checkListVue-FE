@@ -1,6 +1,6 @@
 
 import { defineStore } from 'pinia'
-import type { Project, Sandbox } from '@/interfaces/projects'
+import type { Project } from '@/interfaces/projects'
 import type { State } from '@/interfaces/state'
 import { getPJDetails, getStatiOverall } from '@/services/project.services'
 import type { Stato } from '@/interfaces/stati'
