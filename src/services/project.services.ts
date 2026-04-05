@@ -21,13 +21,13 @@ export async function getStatiOverall(): Promise<Stato[]> {
   return res.json()
 }
 
-export async function putProject(projectId: string, body: Project): Promise<Project> {
+export async function putProject(project: Project): Promise<Project> {
   const init: RequestInit = {
     method: "PUT",
-    body: JSON.stringify(body),
+    body: JSON.stringify(project),
     headers: { "Content-Type": "application/json" },
   }
-  const res = await fetch('http://localhost:3000/projects/' + projectId, init)
+  const res = await fetch('http://localhost:3000/projects/' + project.id, init)
 
   if (!res.ok) {
     throw new Error('Errore API')

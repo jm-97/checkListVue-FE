@@ -27,7 +27,7 @@ watch(() => props.id, (newVal, oldVal) => {
 function onStatusChange(env: Environment, indice: number, fase: Fases, i: number, activity: Activity, index: number, newstatus: singleStato) {
   let project = getCurrentProjectDetails.value();
   project.environments[indice]?.fases[i]?.activity[index]?.stato != newstatus;
-  store.putProjectDetails(project.id, project);
+  store.putProjectDetails(project);
 }
 </script>
 <template>

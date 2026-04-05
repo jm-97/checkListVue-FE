@@ -63,9 +63,9 @@ export const projectStore = defineStore('projects', {
     getStatiSuccess(data: Stato[]) {
       this.stato = data;
     },
-    async putProjectDetails(id: string, projectDetails: Project) {
+    async putProjectDetails(project: Project) {
       try {
-        const data = await putProject(id, projectDetails);
+        const data = await putProject(project);
         this.getProjectSuccess(data);
       } catch (err: any) {
         this.getProjectError(err.message)
