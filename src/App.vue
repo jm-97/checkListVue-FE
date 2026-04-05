@@ -52,7 +52,7 @@ ul {
 }
 
 ul a.router-link-exact-active {
-  color: var(--color-text);
+  background-color: #41B883;
 }
 
 ul a.router-link-exact-active:hover {
@@ -89,6 +89,7 @@ li a:hover {
   background-color: #555555;
   color: white;
 }
+
 
 @media (min-width: 1024px) {
   header {
