@@ -33,6 +33,7 @@ npm install
 
 ```sh
 npm run dev
+npm run dev -- --mode production
 ```
 
 ### Type-Check, Compile and Minify for Production

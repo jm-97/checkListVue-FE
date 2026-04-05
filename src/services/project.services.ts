@@ -1,6 +1,6 @@
 import type { Project, ProjectDTO } from "@/interfaces/projects"
 import type { Stato } from "@/interfaces/stati"
-const hostname: string = "https://checklist-server-jo4k.onrender.com";
+const hostname = import.meta.env.VITE_API_URL
 //http://localhost:3000
 export async function getPJDetails(id: string): Promise<Project> {
   const res = await fetch(hostname + '/projects/' + id)
