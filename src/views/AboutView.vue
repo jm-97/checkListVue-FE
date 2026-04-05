@@ -33,8 +33,8 @@ watch(() => props.id, (newVal, oldVal) => {
         {{ fase.name }}
         <ul>
           <li v-for="(activity, index) in fase.activity" :key="index">
-            <SelectItem :stati="stati" :preSelectedStatus="preSelectedStatusFinder(activity.stato)!"
-              @currentStatus="(status) => Object.assign(newStatus, status)"></SelectItem>
+            <SelectItem v-model="activity.stato" :stati="stati"
+              :preSelectedStatus="preSelectedStatusFinder(activity.stato)!"></SelectItem>
             {{ activity.text }}
           </li>
         </ul>

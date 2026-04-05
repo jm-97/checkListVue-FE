@@ -1,35 +1,31 @@
 <script setup lang="ts">
-import { reactive, watch } from 'vue'
-import type { Stati } from '../interfaces/stati.ts'
-const props = defineProps<Stati>()
-const emit = defineEmits(['currentStatus'])
+import { computed } from 'vue';
+import type { Stato, singleStato } from '../interfaces/stati.ts'
 
-// functions that mutate state and trigger updates
-const currentStatus = reactive({ ...props.preSelectedStatus })
-function changeColor(value: string) {
-  const stato = props.stati.find(s => s.value === value)
-  if (stato) {
-    currentStatus.value = stato.value
-    currentStatus.color = stato.color
-  }
+const props = defineProps<{
+  stati: Stato[]
+  modelValue: singleStato
+}>()
+
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: singleStato): void
+}>()
+
+function onChange(value: string) {
+  emit('update:modelValue', value as singleStato)
 }
-watch(
-  () => props.preSelectedStatus,
-  (newVal) => {
-    currentStatus.value = newVal.value
-    currentStatus.color = newVal.color
-  },
-  { immediate: true, deep: true }
-)
+
+// calcolo derivato → niente stato
+const currentColor = computed(() => {
+  return props.stati.find(s => s.value === props.modelValue)?.color
+})
 </script>
 
 <template>
-  <select @change="changeColor(currentStatus.value)" :style="{ color: currentStatus.color }"
-    v-model="currentStatus.value">
-    <option v-for="(stato, index) in props.stati" :key="index" :value="stato.value" :style="{ color: stato.color }">
+  <select :value="modelValue" @change="onChange(($event.target as HTMLSelectElement).value)"
+    :style="{ color: currentColor }">
+    <option v-for="stato in stati" :key="stato.value" :value="stato.value" :style="{ color: stato.color }">
       {{ stato.value }}
     </option>
   </select>
 </template>
-
-<style scoped></style>
