@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { watch, reactive } from 'vue'
+import { watch } from 'vue'
 import SelectItem from '../components/SelectItem.vue'
 import { projectStore } from '@/stores/project'
 import { storeToRefs } from 'pinia';
 import type { singleStato, Stato } from '@/interfaces/stati';
+
+import type { Activity, Environment, Fases } from '@/interfaces/projects'
+
 const store = projectStore();
 const { getCurrentProjectDetails } = storeToRefs(store)
 
@@ -14,16 +17,18 @@ const stati = store.getStati();
 
 function preSelectedStatusFinder(status: singleStato): Stato {
   const stati: Stato[] = store.getStati()
-
   return stati.find(stato => stato.value == status) as Stato
 }
-const newStatus = reactive({})
-watch(newStatus, (nuovo) => {
 
-})
 watch(() => props.id, (newVal, oldVal) => {
   store.getProjectDetails(newVal!)
 }, { immediate: true })
+
+function onStatusChange(env: Environment, indice: number, fase: Fases, i: number, activity: Activity, index: number, newstatus: singleStato) {
+  let project = getCurrentProjectDetails.value();
+  project.environments[indice]?.fases[i]?.activity[index]?.stato != newstatus;
+  store.putProjectDetails(project.id, project);
+}
 </script>
 <template>
   <div class="container">
@@ -34,7 +39,8 @@ watch(() => props.id, (newVal, oldVal) => {
         <ul>
           <li v-for="(activity, index) in fase.activity" :key="index">
             <SelectItem v-model="activity.stato" :stati="stati"
-              :preSelectedStatus="preSelectedStatusFinder(activity.stato)!"></SelectItem>
+              :preSelectedStatus="preSelectedStatusFinder(activity.stato)!"
+              @update:modelValue="onStatusChange(env, indice, fase, i, activity, index, $event)"></SelectItem>
             {{ activity.text }}
           </li>
         </ul>

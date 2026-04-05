@@ -4,18 +4,19 @@ export interface RootInterface {
   '$schema': string;
   projects: Project[];
 }
-
-export interface Project {
+export interface ProjectDTO {
   id: string;
-  name: string;
-  environments?: Environment[];
+  name: string
 }
-interface Environment {
+export interface Project extends ProjectDTO {
+  environments: Environment[];
+}
+export interface Environment {
   name: string;
   fases: Fases[]
 }
 
-interface Fases {
+export interface Fases {
   name: string;
   activity: Activity[]
 }

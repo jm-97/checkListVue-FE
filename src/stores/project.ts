@@ -2,7 +2,7 @@
 import { defineStore } from 'pinia'
 import type { Project } from '@/interfaces/projects'
 import type { State } from '@/interfaces/state'
-import { getPJDetails, getStatiOverall } from '@/services/project.services'
+import { getPJDetails, getStatiOverall, putProject } from '@/services/project.services'
 import type { Stato } from '@/interfaces/stati'
 
 export const projectStore = defineStore('projects', {
@@ -25,7 +25,7 @@ export const projectStore = defineStore('projects', {
       return (id: string) => state.projects.find((project) => project.id === id)
     },
     getCurrentProjectDetails: (state: State) => {
-      return () => state.currentProjectDetails
+      return (): Project => state.currentProjectDetails
     },
     getStati: (state: State) => {
       return () => state.stato
@@ -62,6 +62,17 @@ export const projectStore = defineStore('projects', {
     },
     getStatiSuccess(data: Stato[]) {
       this.stato = data;
+    },
+    async putProjectDetails(id: string, projectDetails: Project) {
+      try {
+        const data = await putProject(id, projectDetails);
+        this.getProjectSuccess(data);
+      } catch (err: any) {
+        this.getProjectError(err.message)
+      }
+    },
+    putProjectDetailsSuccess(project: Project) {
+      this.currentProjectDetails = project;
     },
   },
 })
