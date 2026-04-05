@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import { projectStore } from './stores/project'
-import type { Project } from './interfaces/projects'
+import type { Project, ProjectDTO } from './interfaces/projects'
 
 const store = projectStore()
+store.getProjectOverall();
 store.getStatiOverall()
-function remove(project: Project) {
-  store.removeProject(project)
+function remove(project: ProjectDTO) {
+  store.removeProject(project);
 }
+
 </script>
 
 <template>

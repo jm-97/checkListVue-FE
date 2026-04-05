@@ -1,4 +1,4 @@
-import type { Project } from "@/interfaces/projects"
+import type { Project, ProjectDTO } from "@/interfaces/projects"
 import type { Stato } from "@/interfaces/stati"
 
 export async function getPJDetails(id: string): Promise<Project> {
@@ -13,6 +13,16 @@ export async function getPJDetails(id: string): Promise<Project> {
 
 export async function getStatiOverall(): Promise<Stato[]> {
   const res = await fetch('http://localhost:3000/stati')
+
+  if (!res.ok) {
+    throw new Error('Errore API')
+  }
+
+  return res.json()
+}
+
+export async function getProjectsOverall(): Promise<ProjectDTO[]> {
+  const res = await fetch('http://localhost:3000/projectsDTO')
 
   if (!res.ok) {
     throw new Error('Errore API')

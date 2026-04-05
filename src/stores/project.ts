@@ -1,18 +1,14 @@
 
 import { defineStore } from 'pinia'
-import type { Project } from '@/interfaces/projects'
+import type { Project, ProjectDTO } from '@/interfaces/projects'
 import type { State } from '@/interfaces/state'
-import { getPJDetails, getStatiOverall, putProject } from '@/services/project.services'
+import { getPJDetails, getProjectsOverall, getStatiOverall, putProject } from '@/services/project.services'
 import type { Stato } from '@/interfaces/stati'
 
 export const projectStore = defineStore('projects', {
 
   state: (): State => ({
-    projects: [
-      { "id": "PJ002835", "name": "CZSK Remittance Additional INformation" },
-      { "id": "PJ003316", "name": "Sepa Rulebook" },
-      { "id": "PJ002361", "name": "CZSKSI STO IP" }
-    ],
+    projects: [],
     currentProjectDetails: {
       id: "",
       name: "",
@@ -35,7 +31,7 @@ export const projectStore = defineStore('projects', {
     addProject(project: Project) {
       this.projects.push(project)
     },
-    removeProject(project: Project) {
+    removeProject(project: ProjectDTO) {
       this.projects.splice(this.projects.findIndex(projectStored => projectStored.id === project.id), 1)
     },
     getProjectSuccess(data: Project) {
@@ -73,6 +69,14 @@ export const projectStore = defineStore('projects', {
     },
     putProjectDetailsSuccess(project: Project) {
       this.currentProjectDetails = project;
+    },
+    async getProjectOverall() {
+      try {
+        const data: ProjectDTO[] = await getProjectsOverall();
+        this.projects = data;
+      } catch (err: any) {
+        this.getProjectError(err.message)
+      }
     },
   },
 })
