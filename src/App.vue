@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import { projectStore } from './stores/project'
-import type { Project, ProjectDTO } from './interfaces/projects'
+import type { ProjectDTO } from './interfaces/projects'
 
 const store = projectStore()
 store.getProjectOverall();
@@ -22,8 +22,8 @@ function remove(project: ProjectDTO) {
         <li>
           <RouterLink to="/create">Create a new Project</RouterLink>
         </li>
-        <li v-for="project in store.projects" :key="project.id">
-          <RouterLink :to="project.id">{{ project.id }} {{ project.name }} <i class="pi pi-trash"
+        <li v-for="project in store.projects" :key="project.projectId">
+          <RouterLink :to="project.projectId">{{ project.projectId }} {{ project.name }} <i class="pi pi-trash"
               @click="remove(project)" style="color: red"></i> </RouterLink>
         </li>
       </ul>

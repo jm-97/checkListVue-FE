@@ -2,7 +2,7 @@
 import { defineStore } from 'pinia'
 import type { Project, ProjectDTO } from '@/interfaces/projects'
 import type { State } from '@/interfaces/state'
-import { getPJDetails, getProjectsOverall, getStatiOverall, putProject } from '@/services/project.services'
+import { createProject, getPJDetails, getProjectsOverall, getStatiOverall, putProject } from '@/services/project.services'
 import type { Stato } from '@/interfaces/stati'
 
 export const projectStore = defineStore('projects', {
@@ -11,6 +11,7 @@ export const projectStore = defineStore('projects', {
     projects: [],
     currentProjectDetails: {
       id: "",
+      projectId: "",
       name: "",
       environments: []
     },
@@ -18,7 +19,7 @@ export const projectStore = defineStore('projects', {
   }),
   getters: {
     getProjectById: (state: State) => {
-      return (id: string) => state.projects.find((project) => project.id === id)
+      return (id: string) => state.projects.find((project) => project.projectId === id)
     },
     getCurrentProjectDetails: (state: State) => {
       return (): Project => state.currentProjectDetails
@@ -28,11 +29,11 @@ export const projectStore = defineStore('projects', {
     }
   },
   actions: {
-    addProject(project: Project) {
+    addProject(project: ProjectDTO) {
       this.projects.push(project)
     },
     removeProject(project: ProjectDTO) {
-      this.projects.splice(this.projects.findIndex(projectStored => projectStored.id === project.id), 1)
+      this.projects.splice(this.projects.findIndex(projectStored => projectStored.projectId === project.projectId), 1)
     },
     getProjectSuccess(data: Project) {
       this.currentProjectDetails = data!;
@@ -74,6 +75,14 @@ export const projectStore = defineStore('projects', {
       try {
         const data: ProjectDTO[] = await getProjectsOverall();
         this.projects = data;
+      } catch (err: any) {
+        this.getProjectError(err.message)
+      }
+    },
+    async createProjectOverall(pjDTO: ProjectDTO) {
+      try {
+        const data: ProjectDTO = await createProject(pjDTO);
+        this.addProject(data);
       } catch (err: any) {
         this.getProjectError(err.message)
       }

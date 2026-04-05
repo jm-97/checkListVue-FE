@@ -37,7 +37,22 @@ export async function putProject(project: Project): Promise<Project> {
     body: JSON.stringify(project),
     headers: { "Content-Type": "application/json" },
   }
-  const res = await fetch('http://localhost:3000/projects/' + project.id, init)
+  const res = await fetch('http://localhost:3000/projects/' + project.projectId, init)
+
+  if (!res.ok) {
+    throw new Error('Errore API')
+  }
+
+  return res.json()
+}
+
+export async function createProject(projectDTO: ProjectDTO): Promise<Project> {
+  const init: RequestInit = {
+    method: "POST",
+    body: JSON.stringify(projectDTO),
+    headers: { "Content-Type": "application/json" },
+  }
+  const res = await fetch('http://localhost:3000/projectsDTO/', init)
 
   if (!res.ok) {
     throw new Error('Errore API')
