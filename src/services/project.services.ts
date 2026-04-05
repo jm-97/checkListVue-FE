@@ -37,7 +37,7 @@ export async function putProject(project: Project): Promise<Project> {
     body: JSON.stringify(project),
     headers: { "Content-Type": "application/json" },
   }
-  const res = await fetch('http://localhost:3000/projects/' + project.projectId, init)
+  const res = await fetch('http://localhost:3000/projects/' + project.id, init)
 
   if (!res.ok) {
     throw new Error('Errore API')

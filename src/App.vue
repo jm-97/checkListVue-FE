@@ -23,7 +23,7 @@ function remove(project: ProjectDTO) {
           <RouterLink to="/create">Create a new Project</RouterLink>
         </li>
         <li v-for="project in store.projects" :key="project.projectId">
-          <RouterLink :to="project.projectId">{{ project.projectId }} {{ project.name }} <i class="pi pi-trash"
+          <RouterLink :to="project.id">{{ project.projectId }} {{ project.name }} <i class="pi pi-trash"
               @click="remove(project)" style="color: red"></i> </RouterLink>
         </li>
       </ul>
