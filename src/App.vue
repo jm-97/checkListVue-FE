@@ -1,19 +1,26 @@
 <script setup lang="ts">
+import ProgressSpinner from 'primevue/progressspinner'
 import { RouterLink, RouterView } from 'vue-router'
 import { projectStore } from './stores/project'
 import type { ProjectDTO } from './interfaces/projects'
+import { onMounted } from 'vue';
 
 const store = projectStore()
-store.getProjectOverall();
-store.getStatiOverall()
 function remove(project: ProjectDTO) {
   store.removeProject(project);
 }
+onMounted(() => {
+  store.getProjectOverall()
+  store.getStatiOverall()
+})
 
 </script>
 
 <template>
   <header>
+    <div v-if="store.isLoading" class="overlay">
+      <ProgressSpinner style="width:60px;height:60px" strokeWidth="4" animationDuration=".8s" />
+    </div>
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
@@ -90,6 +97,21 @@ li a:hover {
   color: white;
 }
 
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 9999;
+  pointer-events: all;
+}
 
 @media (min-width: 1024px) {
   header {
