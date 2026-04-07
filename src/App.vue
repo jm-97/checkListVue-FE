@@ -111,6 +111,9 @@ li a:hover {
 
   z-index: 9999;
   pointer-events: all;
+
+  opacity: 1;
+  transition: opacity 0.2s ease;
 }
 
 @media (min-width: 1024px) {
