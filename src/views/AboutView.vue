@@ -24,9 +24,21 @@ watch(() => props.id, (newVal, oldVal) => {
   store.getProjectDetails(newVal!)
 }, { immediate: true })
 
-function onStatusChange(env: Environment, indice: number, fase: Fases, i: number, activity: Activity, index: number, newstatus: singleStato) {
-  let project = getCurrentProjectDetails.value();
-  project.environments[indice]?.fases[i]?.activity[index]?.stato != newstatus;
+function onStatusChange(
+  env: Environment,
+  indice: number,
+  fase: Fases,
+  i: number,
+  activity: Activity,
+  index: number,
+  newstatus: singleStato
+) {
+  let project = JSON.parse(JSON.stringify(getCurrentProjectDetails.value()));
+
+  // ✅ aggiorni davvero il dato
+  project.environments[indice]!.fases[i]!.activity[index]!.stato = newstatus;
+
+  // ✅ salvi su Supabase
   store.putProjectDetails(project);
 }
 </script>
