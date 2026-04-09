@@ -1,63 +1,98 @@
 import type { Project, ProjectDTO } from "@/interfaces/projects"
 import type { Stato } from "@/interfaces/stati"
-const hostname = import.meta.env.VITE_API_URL
+
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_KEY
+
+const headers = {
+  "Content-Type": "application/json",
+  apikey: SUPABASE_KEY,
+  Authorization: `Bearer ${SUPABASE_KEY}`
+}
 //http://localhost:3000
 export async function getPJDetails(id: string): Promise<Project> {
-  const res = await fetch(hostname + '/projects/' + id)
+  const res = await fetch(
+    `${SUPABASE_URL}/rest/v1/projects_dev?id=eq.${id}`,
+    { headers }
+  )
 
-  if (!res.ok) {
-    throw new Error('Errore API')
+  if (!res.ok) throw new Error("Errore API")
+
+  const data = await res.json()
+
+  // Supabase ritorna array
+  return {
+    ...data[0],
+    ...data[0].data // merge per compatibilità con il tuo modello
   }
-
-  return res.json()
 }
 
 export async function getStatiOverall(): Promise<Stato[]> {
-  const res = await fetch(hostname + '/stati')
-
-  if (!res.ok) {
-    throw new Error('Errore API')
-  }
-
-  return res.json()
+  return [
+    { value: "non_completato", color: "red" },
+    { value: "non_necessario", color: "black" },
+    { value: "ongoing", color: "blue" },
+    { value: "completato", color: "green" }
+  ]
 }
-
 export async function getProjectsOverall(): Promise<ProjectDTO[]> {
-  const res = await fetch(hostname + '/projectsDTO')
+  const res = await fetch(
+    `${SUPABASE_URL}/rest/v1/projects_dev?select=id,projectId,name`,
+    { headers }
+  )
 
-  if (!res.ok) {
-    throw new Error('Errore API')
-  }
+  if (!res.ok) throw new Error("Errore API")
 
   return res.json()
 }
 
 export async function putProject(project: Project): Promise<Project> {
   const init: RequestInit = {
-    method: "PUT",
-    body: JSON.stringify(project),
-    headers: { "Content-Type": "application/json" },
+    method: "PATCH", // ⚠️ NON PUT
+    headers,
+    body: JSON.stringify({
+      data: {
+        environments: project.environments
+      }
+    })
   }
-  const res = await fetch(hostname + '/projects/' + project.id, init)
 
-  if (!res.ok) {
-    throw new Error('Errore API')
+  const res = await fetch(
+    `${SUPABASE_URL}/rest/v1/projects_dev?id=eq.${project.id}`,
+    init
+  )
+
+  if (!res.ok) throw new Error("Errore API")
+
+  const data = await res.json()
+
+  return {
+    ...data[0],
+    ...data[0].data
   }
-
-  return res.json()
 }
 
 export async function createProject(projectDTO: ProjectDTO): Promise<Project> {
   const init: RequestInit = {
     method: "POST",
-    body: JSON.stringify(projectDTO),
-    headers: { "Content-Type": "application/json" },
+    headers,
+    body: JSON.stringify({
+      id: crypto.randomUUID(),
+      projectId: projectDTO.projectId,
+      name: projectDTO.name,
+      data: {
+        environments: []
+      }
+    })
   }
-  const res = await fetch(hostname + '/projectsDTO/', init)
 
-  if (!res.ok) {
-    throw new Error('Errore API')
-  }
+  const res = await fetch(
+    `${SUPABASE_URL}/rest/v1/projects`,
+    init
+  )
 
-  return res.json()
+  if (!res.ok) throw new Error("Errore API")
+
+  const data = await res.json()
+  return data[0]
 }
