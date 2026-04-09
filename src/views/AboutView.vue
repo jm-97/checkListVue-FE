@@ -6,7 +6,25 @@ import { storeToRefs } from 'pinia';
 import type { singleStato, Stato } from '@/interfaces/stati';
 
 import type { Activity, Environment, Fases } from '@/interfaces/projects'
+import { ref, nextTick } from 'vue'
 
+const textareaRef = ref<HTMLTextAreaElement | null>(null)
+
+function autoResize() {
+  if (!textareaRef.value) return
+  textareaRef.value.style.height = 'auto'
+  textareaRef.value.style.height = textareaRef.value.scrollHeight + 'px'
+}
+function startEditing(indice: number, i: number, index: number, currentText: string) {
+  editingKey.value = getKey(indice, i, index)
+  editingText.value = currentText
+
+  nextTick(() => {
+    autoResize()
+  })
+}
+const editingKey = ref<string | null>(null)
+const editingText = ref("")
 const store = projectStore();
 const { getCurrentProjectDetails } = storeToRefs(store)
 
@@ -18,6 +36,23 @@ const stati = store.getStati();
 function preSelectedStatusFinder(status: singleStato): Stato {
   const stati: Stato[] = store.getStati()
   return stati.find(stato => stato.value == status) as Stato
+}
+function getKey(indice: number, i: number, index: number) {
+  return `${indice}-${i}-${index}`
+}
+function saveEdit(indice: number, i: number, index: number) {
+  if (!editingKey.value) return
+
+  // ✅ 1. aggiorna SUBITO lo state (UI reattiva)
+  const current = getCurrentProjectDetails.value()
+  current.environments[indice]!.fases[i]!.activity[index]!.text = editingText.value
+
+  // ✅ 2. manda al backend (clonando)
+  let project = JSON.parse(JSON.stringify(current))
+  store.putProjectDetails(project)
+
+  // ✅ 3. chiudi editing
+  editingKey.value = null
 }
 
 watch(() => props.id, (newVal, oldVal) => {
@@ -53,7 +88,14 @@ function onStatusChange(
             <SelectItem v-model="activity.stato" :stati="stati"
               :preSelectedStatus="preSelectedStatusFinder(activity.stato)!"
               @update:modelValue="onStatusChange(env, indice, fase, i, activity, index, $event)"></SelectItem>
-            {{ activity.text }}
+            <span v-if="editingKey !== getKey(indice, i, index)"
+              @dblclick="startEditing(indice, i, index, activity.text)">
+              {{ activity.text }}
+            </span>
+
+            <textarea v-else v-model="editingText" @keyup.enter="saveEdit(indice, i, index)"
+              @keyup.esc="editingKey = null" ref="textareaRef" class="editable-textarea" @input="autoResize"
+              @blur="saveEdit(indice, i, index)" />
           </li>
         </ul>
       </div>
@@ -67,6 +109,17 @@ function onStatusChange(
   .about {
     min-height: 100vh;
   }
+}
+
+.editable-textarea {
+  width: 100%;
+  min-height: 24px;
+  resize: none;
+  overflow: hidden;
+  font: inherit;
+  border: 1px solid #ccc;
+  padding: 4px;
+  border-radius: 4px;
 }
 
 .container {
