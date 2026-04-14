@@ -3,6 +3,8 @@ import type { Stato } from "@/interfaces/stati"
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
 const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_KEY
+const SUPABASE_TABLE = import.meta.env.VITE_SUPABASE_TABLE
+
 
 const headers = {
   "Content-Type": "application/json",
@@ -12,7 +14,7 @@ const headers = {
 //http://localhost:3000
 export async function getPJDetails(id: string): Promise<Project> {
   const res = await fetch(
-    `${SUPABASE_URL}/rest/v1/projects_dev?id=eq.${id}`,
+    `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?id=eq.${id}`,
     { headers }
   )
 
@@ -37,7 +39,7 @@ export async function getStatiOverall(): Promise<Stato[]> {
 }
 export async function getProjectsOverall(): Promise<ProjectDTO[]> {
   const res = await fetch(
-    `${SUPABASE_URL}/rest/v1/projects_dev?select=id,projectId,name`,
+    `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?select=id,projectId,name`,
     { headers }
   )
 
@@ -58,7 +60,7 @@ export async function putProject(project: Project): Promise<Project> {
   }
 
   const res = await fetch(
-    `${SUPABASE_URL}/rest/v1/projects_dev?id=eq.${project.id}`,
+    `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?id=eq.${project.id}`,
     init
   )
 
@@ -87,7 +89,7 @@ export async function createProject(projectDTO: ProjectDTO): Promise<Project> {
   }
 
   const res = await fetch(
-    `${SUPABASE_URL}/rest/v1/projects`,
+    `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}`,
     init
   )
 
