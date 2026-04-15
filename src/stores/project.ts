@@ -54,18 +54,11 @@ export const projectStore = defineStore('projects', {
         this.stopLoading()
       }
     },
-    async getStatiOverall() {
-      this.startLoading()
-      try {
-        const data = await getStatiOverall()
-        this.getStatiSuccess(data)
-      } catch (err: any) {
-        this.getProjectError(err.message)
-      } finally {
-        this.stopLoading()
-      }
+    getStatiOverall(): void {
+      const data = getStatiOverall()
+      this.getStatiSuccess(data)
     },
-    getStatiSuccess(data: Stato[]) {
+    getStatiSuccess(data: Stato[]): void {
       this.stato = data;
     },
     async putProjectDetails(project: Project) {

@@ -1,4 +1,4 @@
-import { ACTIVITIES } from "@/assets/activities"
+import { ACTIVITIES, STATI } from "@/assets/activities"
 import type { Project, ProjectCreationDTO, ProjectDTO } from "@/interfaces/projects"
 import type { Stato } from "@/interfaces/stati"
 
@@ -31,14 +31,8 @@ export async function getPJDetails(id: string): Promise<Project> {
   }
 }
 
-export async function getStatiOverall(): Promise<Stato[]> {
-  return [
-    { value: "non_completato", color: "red" },
-    { value: "non_necessario", color: "black" },
-    { value: "ongoing", color: "blue" },
-    { value: "completato", color: "green" }
-  ]
-}
+export const getStatiOverall = (): Stato[] => STATI;
+
 export async function getProjectsOverall(): Promise<ProjectDTO[]> {
   const res = await fetch(
     `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?select=id,projectId,name`,

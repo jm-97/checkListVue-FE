@@ -1,4 +1,5 @@
 import type { createProjectPayload } from "@/interfaces/response"
+import type { Stato } from "@/interfaces/stati"
 
 export const ACTIVITIES = (version: string, pj: string): createProjectPayload => {
   return {
@@ -342,3 +343,10 @@ export const ACTIVITIES = (version: string, pj: string): createProjectPayload =>
     ]
   }
 }
+
+export const STATI: Stato[] = [
+  { value: "non_completato", color: "red" },
+  { value: "non_necessario", color: "black" },
+  { value: "ongoing", color: "blue" },
+  { value: "completato", color: "green" }
+]
