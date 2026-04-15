@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import type { ProjectDTO } from '@/interfaces/projects';
+import type { ProjectCreationDTO } from '@/interfaces/projects';
 
 
-const emit = defineEmits(['newProject'])
+const emit = defineEmits<{
+  (e: "newProject", value: ProjectCreationDTO): void
+}>()
 let projectId = ''
 let name = ''
 let version = ''
 function submit() {
   let id = crypto.randomUUID();
-  emit('newProject', { id, projectId, name, version } as ProjectDTO)
+  emit('newProject', { id, projectId, name, version } as ProjectCreationDTO)
 }
 </script>
 

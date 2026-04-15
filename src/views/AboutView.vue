@@ -10,12 +10,12 @@ import { ref, nextTick } from 'vue'
 
 const textareaRef = ref<HTMLTextAreaElement | null>(null)
 
-function autoResize() {
+function autoResize(): void {
   if (!textareaRef.value) return
   textareaRef.value.style.height = 'auto'
   textareaRef.value.style.height = textareaRef.value.scrollHeight + 'px'
 }
-function startEditing(indice: number, i: number, index: number, currentText: string) {
+function startEditing(indice: number, i: number, index: number, currentText: string): void {
   editingKey.value = getKey(indice, i, index)
   editingText.value = currentText
 

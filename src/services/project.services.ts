@@ -1,5 +1,5 @@
 import { ACTIVITIES } from "@/assets/activities"
-import type { Project, ProjectDTO } from "@/interfaces/projects"
+import type { Project, ProjectCreationDTO, ProjectDTO } from "@/interfaces/projects"
 import type { Stato } from "@/interfaces/stati"
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
@@ -76,8 +76,8 @@ export async function putProject(project: Project): Promise<Project> {
   }
 }
 
-export async function createProject(projectDTO: ProjectDTO, version: string): Promise<ProjectDTO> {
-  const DEFAULT_ACTIVITIES = ACTIVITIES(version, projectDTO.projectId);
+export async function createProject(projectDTO: ProjectCreationDTO): Promise<ProjectDTO> {
+  const DEFAULT_ACTIVITIES = ACTIVITIES(projectDTO.version, projectDTO.projectId);
   const init: RequestInit = {
     method: "POST",
     headers,

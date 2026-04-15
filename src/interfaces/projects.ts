@@ -7,8 +7,10 @@ export interface RootInterface {
 export interface ProjectDTO {
   id: string,
   projectId: string;
-  name: string,
-  version?: string,
+  name: string
+}
+export interface ProjectCreationDTO extends ProjectDTO {
+  version: string;
 }
 export interface Project extends ProjectDTO {
   environments: Environment[];

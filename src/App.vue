@@ -111,14 +111,11 @@ li a:hover {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.4);
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   z-index: 9999;
   pointer-events: all;
-
   opacity: 1;
   transition: opacity 0.2s ease;
 }
@@ -137,7 +134,6 @@ li a:hover {
 
 .row.active {
   background-color: #41B883;
-  color: white;
 }
 
 
@@ -151,6 +147,10 @@ li a:hover {
   margin-left: 10px;
   color: inherit;
   opacity: 0.7;
+}
+
+.delete-icon:hover {
+  color: red;
 }
 
 .row:hover .delete-icon {

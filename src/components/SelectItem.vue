@@ -11,7 +11,7 @@ const emit = defineEmits<{
   (e: 'update:modelValue', value: singleStato): void
 }>()
 
-function onChange(value: string) {
+function onChange(value: string): void {
   emit('update:modelValue', value as singleStato)
 }
 

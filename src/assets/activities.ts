@@ -1,6 +1,6 @@
-import type { Environment } from "@/interfaces/projects"
+import type { createProjectPayload } from "@/interfaces/response"
 
-export const ACTIVITIES = (version: string, pj: string): { environments: Environment[] } => {
+export const ACTIVITIES = (version: string, pj: string): createProjectPayload => {
   return {
     "environments": [
       {

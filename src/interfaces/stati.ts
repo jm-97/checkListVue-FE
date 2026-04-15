@@ -1,7 +1,7 @@
 export type singleStato = "non_completato" | "non_necessario" | "ongoing" | "completato";
 export interface Stato {
   value: singleStato,
-  color?: string
+  color: string
 }
 
 export interface Stati {

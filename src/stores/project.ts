@@ -1,6 +1,6 @@
 
 import { defineStore } from 'pinia'
-import type { Project, ProjectDTO } from '@/interfaces/projects'
+import type { Project, ProjectCreationDTO, ProjectDTO } from '@/interfaces/projects'
 import type { State } from '@/interfaces/state'
 import { createProject, deleteProjectById, getPJDetails, getProjectsOverall, getStatiOverall, putProject } from '@/services/project.services'
 import type { Stato } from '@/interfaces/stati'
@@ -93,10 +93,10 @@ export const projectStore = defineStore('projects', {
         this.stopLoading()
       }
     },
-    async createProjectOverall(pjDTO: ProjectDTO, version: string) {
+    async createProjectOverall(pjDTO: ProjectCreationDTO) {
       this.startLoading()
       try {
-        const data: ProjectDTO = await createProject(pjDTO, version);
+        const data: ProjectDTO = await createProject(pjDTO);
         this.addProject(data);
       } catch (err: any) {
         this.getProjectError(err.message)

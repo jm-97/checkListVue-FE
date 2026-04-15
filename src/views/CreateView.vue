@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Creation from '../components/TheCreation.vue'
-import type { ProjectDTO } from '@/interfaces/projects'
+import type { ProjectCreationDTO } from '@/interfaces/projects'
 import { projectStore } from '@/stores/project'
 
 const store = projectStore()
@@ -8,6 +8,6 @@ const store = projectStore()
 
 <template>
   <main>
-    <Creation @newProject="(project: ProjectDTO) => store.createProjectOverall(project, project.version!)" />
+    <Creation @newProject="(project: ProjectCreationDTO) => store.createProjectOverall(project)" />
   </main>
 </template>
