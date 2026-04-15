@@ -2,12 +2,11 @@
 import ProgressSpinner from 'primevue/progressspinner'
 import { RouterLink, RouterView } from 'vue-router'
 import { projectStore } from './stores/project'
-import type { ProjectDTO } from './interfaces/projects'
 import { onMounted } from 'vue';
 
 const store = projectStore()
-function remove(project: ProjectDTO) {
-  store.removeProject(project);
+function remove(id: string) {
+  store.removeProjectOverall(id);
 }
 onMounted(() => {
   store.getProjectOverall()
@@ -31,7 +30,7 @@ onMounted(() => {
         </li>
         <li v-for="project in store.projects" :key="project.projectId">
           <RouterLink :to="project.id">{{ project.projectId }} {{ project.name }} <i class="pi pi-trash"
-              @click="remove(project)" style="color: red"></i> </RouterLink>
+              @click="remove(project.id)" style="color: red"></i> </RouterLink>
         </li>
       </ul>
     </div>

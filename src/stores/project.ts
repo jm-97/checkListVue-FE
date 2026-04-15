@@ -2,7 +2,7 @@
 import { defineStore } from 'pinia'
 import type { Project, ProjectDTO } from '@/interfaces/projects'
 import type { State } from '@/interfaces/state'
-import { createProject, getPJDetails, getProjectsOverall, getStatiOverall, putProject } from '@/services/project.services'
+import { createProject, deleteProjectById, getPJDetails, getProjectsOverall, getStatiOverall, putProject } from '@/services/project.services'
 import type { Stato } from '@/interfaces/stati'
 
 export const projectStore = defineStore('projects', {
@@ -34,8 +34,8 @@ export const projectStore = defineStore('projects', {
     addProject(project: ProjectDTO) {
       this.projects.push(project)
     },
-    removeProject(project: ProjectDTO) {
-      this.projects.splice(this.projects.findIndex(projectStored => projectStored.projectId === project.projectId), 1)
+    removeProject(id: string) {
+      this.projects.splice(this.projects.findIndex(projectStored => projectStored.id === id), 1)
     },
     getProjectSuccess(data: Project) {
       this.currentProjectDetails = data!;
@@ -109,6 +109,17 @@ export const projectStore = defineStore('projects', {
     },
     stopLoading() {
       this.loadingCount--
+    },
+    async removeProjectOverall(id: string) {
+      this.startLoading()
+      try {
+        const data: Project = await deleteProjectById(id);
+        this.removeProject(id);
+      } catch (err: any) {
+        this.getProjectError(err.message)
+      } finally {
+        this.stopLoading()
+      }
     },
   },
 })

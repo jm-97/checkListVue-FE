@@ -100,3 +100,20 @@ export async function createProject(projectDTO: ProjectDTO): Promise<ProjectDTO>
   const data = await res;
   return { ...projectDTO, id }
 }
+
+export async function deleteProjectById(id: string): Promise<Project> {
+  const init: RequestInit = {
+    method: "DELETE",
+    headers: { ...headers, "Prefer": "return=representation" }
+  }
+
+  const res = await fetch(
+    `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?id=eq.${id}`,
+    init
+  )
+
+  if (!res.ok) throw new Error("Errore API")
+
+  const data = await res.json();
+  return data.body
+}
