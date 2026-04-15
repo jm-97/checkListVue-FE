@@ -5,8 +5,10 @@ import type { ProjectDTO } from '@/interfaces/projects';
 const emit = defineEmits(['newProject'])
 let projectId = ''
 let name = ''
+let version = ''
 function submit() {
-  emit('newProject', { projectId, name } as ProjectDTO)
+  let id = crypto.randomUUID();
+  emit('newProject', { id, projectId, name, version } as ProjectDTO)
 }
 </script>
 
@@ -16,6 +18,8 @@ function submit() {
   <input type="text" v-model="projectId" name="id" id="id" placeholder="insert the id: PJXXXXXX" />
   <br />
   <input type="text" v-model="name" name="name" id="name" placeholder="insert the Name of the Project" />
+  <br />
+  <input type="text" v-model="version" name="version" id="version" placeholder="insert the version h.0.31" />
   <br />
   <button @click="submit">create project</button>
 </template>

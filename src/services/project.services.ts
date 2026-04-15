@@ -13,7 +13,6 @@ const headers = {
   Authorization: `Bearer ${SUPABASE_KEY}`
 }
 
-const DEFAULT_ACTIVITIES = ACTIVITIES;
 //http://localhost:3000
 export async function getPJDetails(id: string): Promise<Project> {
   const res = await fetch(
@@ -77,13 +76,13 @@ export async function putProject(project: Project): Promise<Project> {
   }
 }
 
-export async function createProject(projectDTO: ProjectDTO): Promise<ProjectDTO> {
-  const id = crypto.randomUUID();
+export async function createProject(projectDTO: ProjectDTO, version: string): Promise<ProjectDTO> {
+  const DEFAULT_ACTIVITIES = ACTIVITIES(version, projectDTO.projectId);
   const init: RequestInit = {
     method: "POST",
     headers,
     body: JSON.stringify({
-      id,
+      id: projectDTO.id,
       projectId: projectDTO.projectId,
       name: projectDTO.name,
       data: DEFAULT_ACTIVITIES
@@ -98,7 +97,7 @@ export async function createProject(projectDTO: ProjectDTO): Promise<ProjectDTO>
   if (!res.ok) throw new Error("Errore API")
 
   const data = await res;
-  return { ...projectDTO, id }
+  return { ...projectDTO }
 }
 
 export async function deleteProjectById(id: string): Promise<Project> {

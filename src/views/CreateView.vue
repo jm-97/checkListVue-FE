@@ -8,6 +8,6 @@ const store = projectStore()
 
 <template>
   <main>
-    <Creation @newProject="(project: ProjectDTO) => store.createProjectOverall(project)" />
+    <Creation @newProject="(project: ProjectDTO) => store.createProjectOverall(project, project.version!)" />
   </main>
 </template>
