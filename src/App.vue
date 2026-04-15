@@ -29,8 +29,16 @@ onMounted(() => {
           <RouterLink to="/create">Create a new Project</RouterLink>
         </li>
         <li v-for="project in store.projects" :key="project.projectId">
-          <RouterLink :to="project.id">{{ project.projectId }} {{ project.name }} <i class="pi pi-trash"
-              @click="remove(project.id)" style="color: red"></i> </RouterLink>
+          <RouterLink :to="project.id" custom v-slot="{ navigate, isActive }">
+            <div class="row" :class="{ active: isActive }" @click="navigate">
+              <span class="link">
+                {{ project.projectId }} {{ project.name }}
+              </span>
+
+              <i class="pi pi-trash delete-icon" @click.stop="remove(project.id)">
+              </i>
+            </div>
+          </RouterLink>
         </li>
       </ul>
     </div>
@@ -113,6 +121,40 @@ li a:hover {
 
   opacity: 1;
   transition: opacity 0.2s ease;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.row:hover {
+  background-color: #555555;
+  color: white;
+}
+
+.row.active {
+  background-color: #41B883;
+  color: white;
+}
+
+
+.link {
+  flex: 1;
+  text-decoration: none;
+  color: inherit;
+}
+
+.delete-icon {
+  margin-left: 10px;
+  color: inherit;
+  opacity: 0.7;
+}
+
+.row:hover .delete-icon {
+  opacity: 1;
 }
 
 @media (min-width: 1024px) {
