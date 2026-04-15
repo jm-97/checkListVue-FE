@@ -32,7 +32,7 @@ export const ACTIVITIES = (version: string, pj: string): createProjectPayload =>
               },
               {
                 "text": "caricamento endpoint KPS e testFacility update",
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": `Caricamento swagger .docs ${version} su API Portal joomla per le 4 macchine`,
@@ -40,11 +40,11 @@ export const ACTIVITIES = (version: string, pj: string): createProjectPayload =>
               },
               {
                 "text": "Aprire task per update dns",
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": "Aprire task per certificato",
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": `Caricamento yaml countrySpecific ${version} su API Portal`,
@@ -64,15 +64,15 @@ export const ACTIVITIES = (version: string, pj: string): createProjectPayload =>
               },
               {
                 "text": "Aggiornamento test facility",
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": "Aprire task per caricamento pagine mockate sandbox",
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": "Aprire task per i plugin per il download in yaml",
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": "sviluppo della collection Change con newman",
@@ -200,31 +200,31 @@ export const ACTIVITIES = (version: string, pj: string): createProjectPayload =>
               },
               {
                 "text": "caricamento endpoint KPS e testFacility update",
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": `Caricamento swagger .docs ${version} su API Portal joomla per le 4 macchine`,
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": "Aprire task per update dns",
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": "Aprire task per certificato",
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": `Caricamento yaml countrySpecific ${version} su API Portal`,
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": "Verificare su tutte le macchine",
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": "Verificare download degli swagger downloadables",
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": "Verificare accesso scripts e testare etc host",
@@ -232,15 +232,15 @@ export const ACTIVITIES = (version: string, pj: string): createProjectPayload =>
               },
               {
                 "text": "Aggiornamento test facility",
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": "Aprire task per caricamento pagine mockate sandbox",
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": "Aprire task per i plugin per il download in yaml",
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": "sviluppo della collection Change con newman",
@@ -257,23 +257,23 @@ export const ACTIVITIES = (version: string, pj: string): createProjectPayload =>
               },
               {
                 "text": "deploy plugin for the download of yaml",
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": "Caricamento delle pagine mockate sandbox da vts",
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": "Caricamento pagina api catalog not logged",
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": `Numerino a ${version}`,
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": "Aggiunta di tabs basket e bulk per bg not logged",
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": "test mirati per nuove funzionalità in PROD",
@@ -281,7 +281,7 @@ export const ACTIVITIES = (version: string, pj: string): createProjectPayload =>
               },
               {
                 "text": `Aggiornamento API Manager APIM CLI, con swagger ${version}`,
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": "cambiare etc/host e lanciare tutta soapUI per sandbox e (real)",
@@ -293,19 +293,19 @@ export const ACTIVITIES = (version: string, pj: string): createProjectPayload =>
               },
               {
                 "text": "verificare test facility, getting startedPublic e gettingStartedLogged, DOCUMENTATION(loged)",
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": "Controllare sulle 4 macchine di REAL+SANDBOX che FE APIs, BE APIs, e Catalog siano aggiornati correttamente",
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": "Controllare sulle 4 macchine di Portale che Catalog siano aggiornati correttamente",
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": "PYTHON swagger downloadable BY BRUTE FORCE",
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": "Upload del newman report",
@@ -322,15 +322,15 @@ export const ACTIVITIES = (version: string, pj: string): createProjectPayload =>
               },
               {
                 "text": "swaggers APIM in repository bitbucket to master",
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": "Merge soapUI del  feature branch con il branch master per sandbox",
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": "Upload degli swagger su confluence per ogni cambiamento",
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": "Eliminazione dei feature branch",
