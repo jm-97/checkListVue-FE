@@ -5,7 +5,7 @@ export interface RootInterface {
   projects: Project[];
 }
 export interface ProjectDTO {
-  id: string,
+  id?: string,
   projectId: string;
   name: string
 }

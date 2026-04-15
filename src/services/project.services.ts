@@ -1,3 +1,4 @@
+import { ACTIVITIES } from "@/assets/activities"
 import type { Project, ProjectDTO } from "@/interfaces/projects"
 import type { Stato } from "@/interfaces/stati"
 
@@ -11,6 +12,8 @@ const headers = {
   apikey: SUPABASE_KEY,
   Authorization: `Bearer ${SUPABASE_KEY}`
 }
+
+const DEFAULT_ACTIVITIES = ACTIVITIES;
 //http://localhost:3000
 export async function getPJDetails(id: string): Promise<Project> {
   const res = await fetch(
@@ -74,17 +77,16 @@ export async function putProject(project: Project): Promise<Project> {
   }
 }
 
-export async function createProject(projectDTO: ProjectDTO): Promise<Project> {
+export async function createProject(projectDTO: ProjectDTO): Promise<ProjectDTO> {
+  const id = crypto.randomUUID();
   const init: RequestInit = {
     method: "POST",
     headers,
     body: JSON.stringify({
-      id: crypto.randomUUID(),
+      id,
       projectId: projectDTO.projectId,
       name: projectDTO.name,
-      data: {
-        environments: []
-      }
+      data: DEFAULT_ACTIVITIES
     })
   }
 
@@ -95,6 +97,6 @@ export async function createProject(projectDTO: ProjectDTO): Promise<Project> {
 
   if (!res.ok) throw new Error("Errore API")
 
-  const data = await res.json()
-  return data[0]
+  const data = await res;
+  return { ...projectDTO, id }
 }
