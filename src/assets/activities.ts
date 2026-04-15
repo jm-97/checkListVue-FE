@@ -93,7 +93,7 @@ export const ACTIVITIES = (version: string, pj: string): createProjectPayload =>
               },
               {
                 "text": "Caricamento delle pagine mockate sandbox da vts",
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": "Caricamento pagina api catalog not logged",
@@ -105,7 +105,7 @@ export const ACTIVITIES = (version: string, pj: string): createProjectPayload =>
               },
               {
                 "text": "Aggiunta di tabs basket e bulk per bg not logged",
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": "test mirati per nuove funzionalità in PROD",
@@ -125,7 +125,7 @@ export const ACTIVITIES = (version: string, pj: string): createProjectPayload =>
               },
               {
                 "text": "verificare test facility, getting startedPublic e gettingStartedLogged, DOCUMENTATION(loged)",
-                "stato": "non_completato"
+                "stato": "non_necessario"
               },
               {
                 "text": "Controllare sulle 4 macchine di REAL+SANDBOX che FE APIs, BE APIs, e Catalog siano aggiornati correttamente",
@@ -149,7 +149,7 @@ export const ACTIVITIES = (version: string, pj: string): createProjectPayload =>
             "name": "POST-Release",
             "activity": [
               {
-                "text": "merge feature branch to master di real security",
+                "text": "merge feature branch to master di sandbox security",
                 "stato": "non_completato"
               },
               {
@@ -157,7 +157,7 @@ export const ACTIVITIES = (version: string, pj: string): createProjectPayload =>
                 "stato": "non_completato"
               },
               {
-                "text": "Merge soapUI del  feature branch con il branch master per sandbox",
+                "text": "Merge soapUI del feature branch con il branch master per sandbox",
                 "stato": "non_completato"
               },
               {
