@@ -35,7 +35,7 @@ export const getStatiOverall = (): Stato[] => STATI;
 
 export async function getProjectsOverall(): Promise<ProjectDTO[]> {
   const res = await fetch(
-    `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?select=id,projectId,name`,
+    `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?select=id,projectId,name&projectId=neq.TEMPLATE`,
     { headers }
   )
 
