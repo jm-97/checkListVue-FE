@@ -4,6 +4,7 @@ import type { Project, ProjectCreationDTO } from '@/interfaces/projects';
 import { projectStore } from '@/stores/project';
 import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
+import ProjectEditor from './ProjectEditor.vue';
 
 const store = projectStore();
 const emit = defineEmits<{
@@ -14,6 +15,7 @@ let name = ref('')
 let version = ref('')
 
 const { getCurrentTemplate } = storeToRefs(store)
+const stati = store.getStati();
 
 function submit() {
   let id = crypto.randomUUID();
@@ -34,5 +36,9 @@ function submit() {
 
   <div>
     {{ getCurrentTemplate().environments }}
+  </div>
+  <div>
+    <ProjectEditor :project-payload="getCurrentTemplate().environments" :stati="stati"></ProjectEditor>
+
   </div>
 </template>
