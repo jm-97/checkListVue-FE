@@ -87,16 +87,15 @@ export async function putProject(project: Project): Promise<Project> {
   }
 }
 
-export async function createProject(projectDTO: ProjectCreationDTO): Promise<ProjectDTO> {
-  const DEFAULT_ACTIVITIES = ACTIVITIES(projectDTO.version, projectDTO.projectId);
+export async function createProject(project: Project): Promise<ProjectDTO> {
   const init: RequestInit = {
     method: "POST",
     headers,
     body: JSON.stringify({
-      id: projectDTO.id,
-      projectId: projectDTO.projectId,
-      name: projectDTO.name,
-      data: DEFAULT_ACTIVITIES
+      id: project.id,
+      projectId: project.projectId,
+      name: project.name,
+      data: { environments: project.environments }
     })
   }
 
@@ -108,7 +107,7 @@ export async function createProject(projectDTO: ProjectCreationDTO): Promise<Pro
   if (!res.ok) throw new Error("Errore API")
 
   const data = await res;
-  return { ...projectDTO }
+  return { id: project.id, name: project.name, projectId: project.projectId }
 }
 
 export async function deleteProjectById(id: string): Promise<Project> {
