@@ -2,8 +2,12 @@
 import Creation from '../components/TheCreation.vue'
 import type { ProjectCreationDTO } from '@/interfaces/projects'
 import { projectStore } from '@/stores/project'
+import { onMounted } from 'vue';
 
-const store = projectStore()
+const store = projectStore();
+onMounted(() => {
+  store.getTemplateDetails()
+})
 </script>
 
 <template>

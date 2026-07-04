@@ -2,7 +2,7 @@
 import { defineStore } from 'pinia'
 import type { Project, ProjectCreationDTO, ProjectDTO } from '@/interfaces/projects'
 import type { State } from '@/interfaces/state'
-import { createProject, deleteProjectById, getPJDetails, getProjectsOverall, getStatiOverall, putProject } from '@/services/project.services'
+import { createProject, deleteProjectById, getPJDetails, getProjectsOverall, getStatiOverall, getTemplate, putProject } from '@/services/project.services'
 import type { Stato } from '@/interfaces/stati'
 
 export const projectStore = defineStore('projects', {
@@ -10,6 +10,12 @@ export const projectStore = defineStore('projects', {
   state: (): State => ({
     projects: [],
     currentProjectDetails: {
+      id: "",
+      projectId: "",
+      name: "",
+      environments: []
+    },
+    currentTemplate: {
       id: "",
       projectId: "",
       name: "",
@@ -26,6 +32,9 @@ export const projectStore = defineStore('projects', {
     getCurrentProjectDetails: (state: State) => {
       return (): Project => state.currentProjectDetails
     },
+    getCurrentTemplate: (state: State) => {
+      return (): Project => state.currentTemplate
+    },
     getStati: (state: State) => {
       return () => state.stato
     }
@@ -40,6 +49,12 @@ export const projectStore = defineStore('projects', {
     getProjectSuccess(data: Project) {
       this.currentProjectDetails = data!;
     },
+    getTemplateDetailsSuccess(data: Project) {
+      this.currentTemplate = data!;
+    },
+    getTemplateError(message: any) {
+      console.log(message)
+    },
     getProjectError(message: any) {
       console.log(message)
     },
@@ -48,6 +63,17 @@ export const projectStore = defineStore('projects', {
       try {
         const data = await getPJDetails(id)
         this.getProjectSuccess(data)
+      } catch (err: any) {
+        this.getProjectError(err.message)
+      } finally {
+        this.stopLoading()
+      }
+    },
+    async getTemplateDetails() {
+      this.startLoading()
+      try {
+        const data = await getTemplate()
+        this.getTemplateDetailsSuccess(data)
       } catch (err: any) {
         this.getProjectError(err.message)
       } finally {

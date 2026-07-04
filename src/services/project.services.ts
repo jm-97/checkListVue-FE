@@ -31,6 +31,23 @@ export async function getPJDetails(id: string): Promise<Project> {
   }
 }
 
+export async function getTemplate(): Promise<Project> {
+  const res = await fetch(
+    `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?projectId=eq.TEMPLATE`,
+    { headers }
+  )
+
+  if (!res.ok) throw new Error("Errore API")
+
+  const data = await res.json()
+
+  // Supabase ritorna array
+  return {
+    ...data[0],
+    ...data[0].data // merge per compatibilità con il tuo modello
+  }
+}
+
 export const getStatiOverall = (): Stato[] => STATI;
 
 export async function getProjectsOverall(): Promise<ProjectDTO[]> {

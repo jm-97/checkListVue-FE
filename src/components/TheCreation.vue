@@ -1,15 +1,20 @@
 <script setup lang="ts">
 import { ACTIVITIES } from '@/assets/activities';
 import type { ProjectCreationDTO } from '@/interfaces/projects';
+import { projectStore } from '@/stores/project';
+import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
 
-
+const store = projectStore();
 const emit = defineEmits<{
   (e: "newProject", value: ProjectCreationDTO): void
 }>()
 let projectId = ref('')
 let name = ref('')
 let version = ref('')
+
+const { getCurrentTemplate } = storeToRefs(store)
+
 function submit() {
   let id = crypto.randomUUID();
   emit('newProject', { id, projectId: projectId.value, name: name.value, version: version.value } as ProjectCreationDTO)
@@ -31,6 +36,6 @@ const DEFAULT_ACTIVITIES = computed(() => {
   <button @click="submit">create project</button>
 
   <div>
-    {{ DEFAULT_ACTIVITIES }}
+    {{ getCurrentTemplate() }}
   </div>
 </template>
