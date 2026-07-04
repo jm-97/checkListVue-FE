@@ -8,6 +8,10 @@ const props = defineProps<{
   projectPayload: Environment[],
   stati: Stato[],
 }>()
+
+const emit = defineEmits<{
+  (e: "editedProject", value: Environment[]): void
+}>()
 const editingText = ref("")
 const textareaRef = ref<HTMLTextAreaElement | null>(null)
 
@@ -27,14 +31,15 @@ function onStatusChange(
   index: number,
   newstatus: singleStato
 ) {
+
   let project = JSON.parse(JSON.stringify(props.projectPayload));
 
   // ✅ aggiorni davvero il dato
-  project.environments[indice]!.fases[i]!.activity[index]!.stato = newstatus;
+  project[indice]!.fases[i]!.activity[index]!.stato = newstatus;
 
   // ✅ salvi su Supabase
   //store.putProjectDetails(project);
-  console.log(project)
+  emit('editedProject', project)
 }
 function startEditing(indice: number, i: number, index: number, currentText: string): void {
   editingKey.value = getKey(indice, i, index)

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ACTIVITIES } from '@/assets/activities';
-import type { Project, ProjectCreationDTO } from '@/interfaces/projects';
+import type { Environment, Project, ProjectCreationDTO } from '@/interfaces/projects';
 import { projectStore } from '@/stores/project';
 import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
@@ -35,10 +35,8 @@ function submit() {
   <button @click="submit">create project</button>
 
   <div>
-    {{ getCurrentTemplate().environments }}
-  </div>
-  <div>
-    <ProjectEditor :project-payload="getCurrentTemplate().environments" :stati="stati"></ProjectEditor>
+    <ProjectEditor :project-payload="getCurrentTemplate().environments" :stati="stati"
+      @editedProject="(payload: Environment[]) => store.putCurrentTemplate(payload)"></ProjectEditor>
 
   </div>
 </template>

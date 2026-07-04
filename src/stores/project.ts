@@ -1,6 +1,6 @@
 
 import { defineStore } from 'pinia'
-import type { Project, ProjectCreationDTO, ProjectDTO } from '@/interfaces/projects'
+import type { Environment, Project, ProjectCreationDTO, ProjectDTO } from '@/interfaces/projects'
 import type { State } from '@/interfaces/state'
 import { createProject, deleteProjectById, getPJDetails, getProjectsOverall, getStatiOverall, getTemplate, putProject } from '@/services/project.services'
 import type { Stato } from '@/interfaces/stati'
@@ -100,6 +100,9 @@ export const projectStore = defineStore('projects', {
     },
     putProjectDetailsSuccess(project: Project) {
       this.currentProjectDetails = project;
+    },
+    putCurrentTemplate(payload: Environment[]) {
+      this.currentProjectDetails.environments = payload;
     },
     async getProjectOverall() {
       this.startLoading()
