@@ -29,15 +29,6 @@ export const projectStore = defineStore('projects', {
     getProjectById: (state: State) => {
       return (id: string) => state.projects.find((project) => project.projectId === id)
     },
-    getCurrentProjectDetails: (state: State) => {
-      return (): Project => state.currentProjectDetails
-    },
-    getCurrentTemplate: (state: State) => {
-      return (): Project => state.currentTemplate
-    },
-    getStati: (state: State) => {
-      return () => state.stato
-    }
   },
   actions: {
     addProject(project: ProjectDTO) {

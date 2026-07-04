@@ -26,15 +26,15 @@ function startEditing(indice: number, i: number, index: number, currentText: str
 const editingKey = ref<string | null>(null)
 const editingText = ref("")
 const store = projectStore();
-const { getCurrentProjectDetails } = storeToRefs(store)
+const { currentProjectDetails } = storeToRefs(store)
 
 const props = defineProps({
   id: String
 })
-const stati = store.getStati();
+const stati = store.stato;
 
 function preSelectedStatusFinder(status: singleStato): Stato {
-  const stati: Stato[] = store.getStati()
+  const stati: Stato[] = store.stato
   return stati.find(stato => stato.value == status) as Stato
 }
 function getKey(indice: number, i: number, index: number) {
@@ -44,7 +44,7 @@ function saveEdit(indice: number, i: number, index: number) {
   if (!editingKey.value) return
 
   // ✅ 1. aggiorna SUBITO lo state (UI reattiva)
-  const current = getCurrentProjectDetails.value()
+  const current = currentProjectDetails.value
   current.environments[indice]!.fases[i]!.activity[index]!.text = editingText.value
 
   // ✅ 2. manda al backend (clonando)
@@ -68,7 +68,7 @@ function onStatusChange(
   index: number,
   newstatus: singleStato
 ) {
-  let project = JSON.parse(JSON.stringify(getCurrentProjectDetails.value()));
+  let project = JSON.parse(JSON.stringify(currentProjectDetails.value));
 
   // ✅ aggiorni davvero il dato
   project.environments[indice]!.fases[i]!.activity[index]!.stato = newstatus;
@@ -79,7 +79,7 @@ function onStatusChange(
 </script>
 <template>
   <div class="container">
-    <div class="column" v-for="(env, indice) in getCurrentProjectDetails().environments" :key="indice">
+    <div class="column" v-for="(env, indice) in currentProjectDetails.environments" :key="indice">
       <h1>{{ env.name }}</h1><!--Sandbox-->
       <div v-for="(fase, i) in env.fases" :key="i">
         {{ fase.name }}

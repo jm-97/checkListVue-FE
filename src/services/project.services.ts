@@ -79,12 +79,9 @@ export async function putProject(project: Project): Promise<Project> {
 
   if (!res.ok) throw new Error("Errore API")
 
-  const data = await res.json()
+  //const data = await res.json()
 
-  return {
-    ...data[0],
-    ...data[0].data
-  }
+  return project
 }
 
 export async function createProject(project: Project): Promise<ProjectDTO> {

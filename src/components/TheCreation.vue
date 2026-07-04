@@ -14,12 +14,12 @@ let projectId = ref('')
 let name = ref('')
 let version = ref('')
 
-const { getCurrentTemplate } = storeToRefs(store)
-const stati = store.getStati();
+const { currentTemplate } = storeToRefs(store)
+const stati = store.stato;
 
 function submit() {
   let id = crypto.randomUUID();
-  emit('newProject', { id, projectId: projectId.value, name: name.value, version: version.value, environments: getCurrentTemplate.value().environments } as Project)
+  emit('newProject', { id, projectId: projectId.value, name: name.value, version: version.value, environments: currentTemplate.value.environments } as Project)
 }
 </script>
 
@@ -35,7 +35,7 @@ function submit() {
   <button @click="submit">create project</button>
 
   <div>
-    <ProjectEditor :project-payload="getCurrentTemplate().environments" :stati="stati"
+    <ProjectEditor :project-payload="currentTemplate.environments" :stati="stati"
       @editedProject="(payload: Environment[]) => store.putCurrentTemplate(payload)"></ProjectEditor>
 
   </div>
