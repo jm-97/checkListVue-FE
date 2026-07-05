@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { ACTIVITIES } from '@/assets/activities';
-import type { Environment, Project, ProjectCreationDTO } from '@/interfaces/projects';
+import type { Environment, Project } from '@/interfaces/projects';
 import { projectStore } from '@/stores/project';
 import { storeToRefs } from 'pinia';
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import ProjectEditor from './ProjectEditor.vue';
 
 const store = projectStore();
@@ -13,7 +12,6 @@ const emit = defineEmits<{
 let projectId = ref('')
 let name = ref('')
 let version = ref('')
-
 const { currentTemplate } = storeToRefs(store)
 const stati = store.stato;
 
