@@ -43,19 +43,13 @@ export const projectStore = defineStore('projects', {
     getTemplateDetailsSuccess(data: Project) {
       this.currentTemplate = data!;
     },
-    getTemplateError(message: any) {
-      console.log(message)
-    },
-    getProjectError(message: any) {
-      console.log(message)
-    },
     async getProjectDetails(id: string) {
       this.startLoading()
       try {
         const data = await getPJDetails(id)
         this.getProjectSuccess(data)
       } catch (err: any) {
-        this.getProjectError(err.message)
+        this.logError(err.message)
       } finally {
         this.stopLoading()
       }
@@ -66,10 +60,13 @@ export const projectStore = defineStore('projects', {
         const data = await getTemplate()
         this.getTemplateDetailsSuccess(data)
       } catch (err: any) {
-        this.getProjectError(err.message)
+        this.logError(err.message)
       } finally {
         this.stopLoading()
       }
+    },
+    logError(error: any) {
+      console.log(error)
     },
     getStatiOverall(): void {
       const data = getStatiOverall()
@@ -84,7 +81,7 @@ export const projectStore = defineStore('projects', {
         const data = await putProject(project);
         this.getProjectSuccess(data);
       } catch (err: any) {
-        this.getProjectError(err.message)
+        this.logError(err.message)
       } finally {
         this.stopLoading()
       }
@@ -101,7 +98,7 @@ export const projectStore = defineStore('projects', {
         const data: ProjectDTO[] = await getProjectsOverall();
         this.projects = data;
       } catch (err: any) {
-        this.getProjectError(err.message)
+        this.logError(err.message)
       } finally {
         this.stopLoading()
       }
@@ -112,7 +109,7 @@ export const projectStore = defineStore('projects', {
         const data: ProjectDTO = await createProject(pj);
         this.addProject(data);
       } catch (err: any) {
-        this.getProjectError(err.message)
+        this.logError(err.message)
       } finally {
         this.stopLoading()
       }
@@ -129,7 +126,7 @@ export const projectStore = defineStore('projects', {
         const data: Project = await deleteProjectById(id);
         this.removeProject(id);
       } catch (err: any) {
-        this.getProjectError(err.message)
+        this.logError(err.message)
       } finally {
         this.stopLoading()
       }
