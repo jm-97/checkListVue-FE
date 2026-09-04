@@ -23,7 +23,7 @@ onMounted(() => {
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <h1>Here the list of projets</h1>
+      <h1>List of projets:</h1>
       <ul>
         <li>
           <RouterLink to="/create">Create a new Project</RouterLink>
