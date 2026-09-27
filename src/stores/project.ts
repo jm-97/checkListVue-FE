@@ -112,7 +112,7 @@ export const projectStore = defineStore('projects', {
         this.stopLoading()
       }
     },
-    async createProjectOverall(pj: Project) {
+    async createProjectOverall(pj: ProjectCreationDTO) {
       this.startLoading()
       try {
         const data: ProjectDTO = await createProject(pj);

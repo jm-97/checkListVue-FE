@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Environment, Project } from '@/interfaces/projects';
+import type { Environment, ProjectCreationDTO } from '@/interfaces/projects';
 import { projectStore } from '@/stores/project';
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
@@ -7,7 +7,7 @@ import ProjectEditor from './ProjectEditor.vue';
 
 const store = projectStore();
 const emit = defineEmits<{
-  (e: "newProject", value: Project): void
+  (e: "newProject", value: ProjectCreationDTO): void
 }>()
 let projectId = ref('')
 let name = ref('')
@@ -17,7 +17,7 @@ const stati = store.stato;
 
 function submit() {
   let id = crypto.randomUUID();
-  emit('newProject', { id, projectId: projectId.value, name: name.value, version: version.value, environments: currentTemplate.value.environments } as Project)
+  emit('newProject', { id, projectId: projectId.value, name: name.value, version: version.value })
 }
 </script>
 

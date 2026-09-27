@@ -109,20 +109,20 @@ export async function putText(text: TextUpdate): Promise<TextUpdate> {
 
   return text
 }
-export async function createProject(project: Project): Promise<ProjectDTO> {
+export async function createProject(project: ProjectCreationDTO): Promise<ProjectDTO> {
   const init: RequestInit = {
     method: "POST",
     headers,
     body: JSON.stringify({
-      id: project.id,
-      projectId: project.projectId,
-      name: project.name,
-      data: { environments: project.environments }
+      "p_id": project.id,
+      "p_project": project.projectId,
+      "p_name": project.name,
+      "p_version": project.version
     })
   }
 
   const res = await fetch(
-    `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}`,
+    `${SUPABASE_URL}/rest/v1/rpc/create_project`,
     init
   )
 
