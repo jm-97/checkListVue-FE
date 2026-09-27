@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Creation from '../components/TheCreation.vue'
-import type { Project } from '@/interfaces/projects'
+import type { ProjectCreationDTO } from '@/interfaces/projects'
 import { projectStore } from '@/stores/project'
 import { onMounted } from 'vue';
 
@@ -13,6 +13,6 @@ onMounted(() => {
 
 <template>
   <main>
-    <Creation @newProject="(project: Project) => store.createProjectOverall(project)" />
+    <Creation @newProject="(project: ProjectCreationDTO) => store.createProjectOverall(project)" />
   </main>
 </template>

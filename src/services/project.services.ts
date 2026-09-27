@@ -1,4 +1,4 @@
-import { ACTIVITIES, STATI } from "@/assets/activities"
+import { STATI } from "@/assets/activities"
 import type { ActivityUpdate, Project, ProjectCreationDTO, ProjectDTO, TextUpdate } from "@/interfaces/projects"
 import type { Stato } from "@/interfaces/stati"
 
