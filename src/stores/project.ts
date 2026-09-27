@@ -1,8 +1,8 @@
 
 import { defineStore } from 'pinia'
-import type { ActivityUpdate, Environment, Project, ProjectCreationDTO, ProjectDTO } from '@/interfaces/projects'
+import type { ActivityUpdate, Environment, Project, ProjectCreationDTO, ProjectDTO, TextUpdate } from '@/interfaces/projects'
 import type { State } from '@/interfaces/state'
-import { createProject, deleteProjectById, getPJDetails, getProjectsOverall, getStatiOverall, getTemplate, putActivity } from '@/services/project.services'
+import { createProject, deleteProjectById, getPJDetails, getProjectsOverall, getStatiOverall, getTemplate, putActivity, putText } from '@/services/project.services'
 import type { Stato } from '@/interfaces/stati'
 
 export const projectStore = defineStore('projects', {
@@ -80,7 +80,16 @@ export const projectStore = defineStore('projects', {
       try {
         const data = await putActivity(activity)
       } catch (err: any) {
-        console.log("esploso qui!")
+        this.logError(err.message)
+      } finally {
+        this.stopLoading()
+      }
+    },
+    async putActivityText(text: TextUpdate) {
+      this.startLoading()
+      try {
+        const data = await putText(text)
+      } catch (err: any) {
         this.logError(err.message)
       } finally {
         this.stopLoading()

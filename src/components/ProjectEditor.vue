@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ActivityUpdate, Environment } from '@/interfaces/projects';
+import type { ActivityUpdate, Environment, TextUpdate } from '@/interfaces/projects';
 import type { singleStato, Stato } from '@/interfaces/stati';
 import { nextTick, ref } from 'vue';
 import SelectItem from './SelectItem.vue';
@@ -10,7 +10,8 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: "updatedStatus", value: ActivityUpdate): void
+  (e: "updatedStatus", value: ActivityUpdate): void,
+  (f: "updatedText", value: TextUpdate): void
 }>()
 const editingText = ref("")
 const textareaRef = ref<HTMLTextAreaElement | null>(null)
@@ -38,20 +39,17 @@ function startEditing(indice: number, i: number, index: number, currentText: str
 }
 function autoResize(): void {
   if (!textareaRef.value) return
+
   textareaRef.value.style.height = 'auto'
-  textareaRef.value.style.height = textareaRef.value.scrollHeight + 'px'
+  textareaRef.value.style.height =
+    `${textareaRef.value.scrollHeight}px`
 }
-function saveEdit(indice: number, i: number, index: number) {
+function saveEdit(indice: number, i: number, index: number, id: number) {
   if (!editingKey.value) return
 
-  // ✅ 1. aggiorna SUBITO lo state (UI reattiva)
   const current = props.projectPayload
   current[indice]!.fases[i]!.activity[index]!.text = editingText.value
-
-  // ✅ 2. manda al backend (clonando)
-  let project = JSON.parse(JSON.stringify(current))
-  //store.putProjectDetails(project)
-  console.log(project)
+  emit('updatedText', { text: editingText.value, id })
 
   // ✅ 3. chiudi editing
   editingKey.value = null
@@ -74,9 +72,9 @@ function saveEdit(indice: number, i: number, index: number) {
               {{ activity.text }}
             </span>
 
-            <textarea v-else v-model="editingText" @keyup.enter="saveEdit(indice, i, index)"
-              @keyup.esc="editingKey = null" ref="textareaRef" class="editable-textarea" @input="autoResize"
-              @blur="saveEdit(indice, i, index)" />
+            <textarea v-else v-model="editingText" @keyup.enter="saveEdit(indice, i, index, activity.id)"
+              @keyup.esc="editingKey = null" :ref="el => textareaRef = el as HTMLTextAreaElement"
+              class="editable-textarea" @input="autoResize" @blur="saveEdit(indice, i, index, activity.id)" />
           </li>
         </ul>
       </div>

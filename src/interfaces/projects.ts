@@ -36,3 +36,7 @@ export interface ActivityUpdate {
   id: number,
   stato: singleStato
 }
+export interface TextUpdate {
+  id: number,
+  text: string
+}

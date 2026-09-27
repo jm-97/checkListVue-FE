@@ -1,5 +1,5 @@
 import { ACTIVITIES, STATI } from "@/assets/activities"
-import type { ActivityUpdate, Project, ProjectCreationDTO, ProjectDTO } from "@/interfaces/projects"
+import type { ActivityUpdate, Project, ProjectCreationDTO, ProjectDTO, TextUpdate } from "@/interfaces/projects"
 import type { Stato } from "@/interfaces/stati"
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
@@ -89,6 +89,26 @@ export async function putActivity(activity: ActivityUpdate): Promise<ActivityUpd
   return activity
 }
 
+export async function putText(text: TextUpdate): Promise<TextUpdate> {
+  const init: RequestInit = {
+    method: "PATCH", //
+    headers,
+    body: JSON.stringify({
+      text_display: text.text
+    })
+  }
+
+  const res = await fetch(
+    `${SUPABASE_URL}/rest/v1/project_activities?id=eq.${text.id}`,
+    init
+  )
+
+  if (!res.ok) throw new Error("Errore API")
+
+  //const data = await res.json()
+
+  return text
+}
 export async function createProject(project: Project): Promise<ProjectDTO> {
   const init: RequestInit = {
     method: "POST",
