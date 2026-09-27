@@ -1,5 +1,5 @@
 import { ACTIVITIES, STATI } from "@/assets/activities"
-import type { Project, ProjectCreationDTO, ProjectDTO } from "@/interfaces/projects"
+import type { ActivityUpdate, Project, ProjectCreationDTO, ProjectDTO } from "@/interfaces/projects"
 import type { Stato } from "@/interfaces/stati"
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
@@ -68,19 +68,17 @@ export async function getProjectsOverall(): Promise<ProjectDTO[]> {
   return res.json()
 }
 
-export async function putProject(project: Project): Promise<Project> {
+export async function putActivity(activity: ActivityUpdate): Promise<ActivityUpdate> {
   const init: RequestInit = {
-    method: "PATCH", // ⚠️ NON PUT
+    method: "PATCH", //
     headers,
     body: JSON.stringify({
-      data: {
-        environments: project.environments
-      }
+      status: activity.stato
     })
   }
 
   const res = await fetch(
-    `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?id=eq.${project.id}`,
+    `${SUPABASE_URL}/rest/v1/project_activities?id=eq.${activity.id}`,
     init
   )
 
@@ -88,7 +86,7 @@ export async function putProject(project: Project): Promise<Project> {
 
   //const data = await res.json()
 
-  return project
+  return activity
 }
 
 export async function createProject(project: Project): Promise<ProjectDTO> {

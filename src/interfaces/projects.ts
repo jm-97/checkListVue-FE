@@ -26,6 +26,13 @@ export interface Fases {
 }
 
 export interface Activity {
+  id: number,
+  activityId: number,
   text: string,
+  stato: singleStato
+}
+
+export interface ActivityUpdate {
+  id: number,
   stato: singleStato
 }

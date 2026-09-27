@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { watch } from 'vue'
 import { projectStore } from '@/stores/project'
-import type { Environment } from '@/interfaces/projects'
+import type { ActivityUpdate, Environment } from '@/interfaces/projects'
 import ProjectEditor from '../components/ProjectEditor.vue';
 import { storeToRefs } from 'pinia';
 
@@ -21,7 +21,7 @@ watch(() => props.id, (newVal, oldVal) => {
 <template>
   <div>
     <ProjectEditor :project-payload="currentProjectDetails.environments" :stati="stati"
-      @editedProject="(payload: Environment[]) => store.putProjectDetails({ ...currentProjectDetails, environments: payload })">
+      @updatedStatus="(activityDTO: ActivityUpdate) => store.putActivityStatus(activityDTO)">
     </ProjectEditor>
   </div>
 </template>

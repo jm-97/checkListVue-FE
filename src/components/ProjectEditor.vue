@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Activity, Environment, Fases } from '@/interfaces/projects';
+import type { ActivityUpdate, Environment } from '@/interfaces/projects';
 import type { singleStato, Stato } from '@/interfaces/stati';
 import { nextTick, ref } from 'vue';
 import SelectItem from './SelectItem.vue';
@@ -10,7 +10,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: "editedProject", value: Environment[]): void
+  (e: "updatedStatus", value: ActivityUpdate): void
 }>()
 const editingText = ref("")
 const textareaRef = ref<HTMLTextAreaElement | null>(null)
@@ -23,23 +23,10 @@ function preSelectedStatusFinder(status: singleStato): Stato {
   return props.stati.find(stato => stato.value == status) as Stato
 }
 function onStatusChange(
-  env: Environment,
-  indice: number,
-  fase: Fases,
-  i: number,
-  activity: Activity,
-  index: number,
-  newstatus: singleStato
-) {
-
-  let project = JSON.parse(JSON.stringify(props.projectPayload));
-
-  // ✅ aggiorni davvero il dato
-  project[indice]!.fases[i]!.activity[index]!.stato = newstatus;
-
-  // ✅ salvi su Supabase
-  //store.putProjectDetails(project);
-  emit('editedProject', project)
+  newstatus: singleStato,
+  id: number
+): void {
+  emit('updatedStatus', { stato: newstatus, id })
 }
 function startEditing(indice: number, i: number, index: number, currentText: string): void {
   editingKey.value = getKey(indice, i, index)
@@ -80,7 +67,8 @@ function saveEdit(indice: number, i: number, index: number) {
           <li v-for="(activity, index) in fase.activity" :key="index">
             <SelectItem v-model="activity.stato" :stati="stati"
               :preSelectedStatus="preSelectedStatusFinder(activity.stato)!"
-              @update:modelValue="onStatusChange(env, indice, fase, i, activity, index, $event)"></SelectItem>
+              @update:modelValue="onStatusChange($event, activity.id)">
+            </SelectItem>
             <span v-if="editingKey !== getKey(indice, i, index)"
               @dblclick="startEditing(indice, i, index, activity.text)">
               {{ activity.text }}
