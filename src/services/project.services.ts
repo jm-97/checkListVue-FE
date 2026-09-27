@@ -15,19 +15,26 @@ const headers = {
 
 //http://localhost:3000
 export async function getPJDetails(id: string): Promise<Project> {
+  const init: RequestInit = {
+    method: "POST",
+    headers,
+    body: JSON.stringify({
+      "project_uuid": id
+    })
+  }
   const res = await fetch(
-    `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?id=eq.${id}`,
-    { headers }
+    `${SUPABASE_URL}/rest/v1/rpc/get_project_with_phases`,
+    init
   )
 
   if (!res.ok) throw new Error("Errore API")
 
-  const data = await res.json()
-
+  const payload = await res.json()
+  payload.environments = payload.data.environments;
+  delete payload.data;
   // Supabase ritorna array
   return {
-    ...data[0],
-    ...data[0].data // merge per compatibilità con il tuo modello
+    ...payload // merge per compatibilità con il tuo modello
   }
 }
 
