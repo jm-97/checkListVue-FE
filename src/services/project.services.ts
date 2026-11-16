@@ -27,9 +27,9 @@ export async function getPJDetails(id: string): Promise<Project> {
     init
   )
 
-  if (!res.ok) throw new Error("Errore API")
-
   const payload = await res.json()
+  validateResponse(res, payload);
+  
   payload.environments = payload.data.environments;
   delete payload.data;
   // Supabase ritorna array
@@ -44,14 +44,14 @@ export async function getTemplate(): Promise<Project> {
     { headers }
   )
 
-  if (!res.ok) throw new Error("Errore API")
 
-  const data = await res.json()
+  const payload = await res.json()
+  validateResponse(res, payload);
 
   // Supabase ritorna array
   return {
-    ...data[0],
-    ...data[0].data // merge per compatibilità con il tuo modello
+    ...payload[0],
+    ...payload[0].data // merge per compatibilità con il tuo modello
   }
 }
 
@@ -62,10 +62,10 @@ export async function getProjectsOverall(): Promise<ProjectDTO[]> {
     `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?select=id,projectId,name&projectId=neq.TEMPLATE`,
     { headers }
   )
+  const payload = await res.json()
+  validateResponse(res, payload);
 
-  if (!res.ok) throw new Error("Errore API")
-
-  return res.json()
+  return payload
 }
 
 export async function putActivity(activity: ActivityUpdate): Promise<ActivityUpdate> {
@@ -147,4 +147,9 @@ export async function deleteProjectById(id: string): Promise<Project> {
 
   const data = await res.json();
   return data.body
+}
+
+function validateResponse(res: Response, payload: any):void{ 
+    if (!res.ok || !payload) throw new Error(`Errore con l'API ${res.url} - ${res.status} - ${res.statusText}`)
+
 }
