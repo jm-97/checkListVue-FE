@@ -4,7 +4,7 @@ import type { ActivityUpdate, Environment, Project, ProjectCreationDTO, ProjectD
 import type { State } from '@/interfaces/state'
 import { createProject, deleteProjectById, getPJDetails, getProjectsOverall, getStatiOverall, getTemplate, putActivity, putText } from '@/services/project.services'
 import type { Stato } from '@/interfaces/stati'
-
+import { toast } from "vue-toastflow";
 export const projectStore = defineStore('projects', {
 
   state: (): State => ({
@@ -49,7 +49,7 @@ export const projectStore = defineStore('projects', {
         const data = await getPJDetails(id)
         this.getProjectSuccess(data)
       } catch (err: any) {
-        this.logError(err.message)
+        toast.error({ title: "Error", description: err.message });
       } finally {
         this.stopLoading()
       }
@@ -60,7 +60,7 @@ export const projectStore = defineStore('projects', {
         const data = await getTemplate()
         this.getTemplateDetailsSuccess(data)
       } catch (err: any) {
-        this.logError(err.message)
+        toast.error({ title: "Error", description: err.message });
       } finally {
         this.stopLoading()
       }
@@ -80,7 +80,7 @@ export const projectStore = defineStore('projects', {
       try {
         const data = await putActivity(activity)
       } catch (err: any) {
-        this.logError(err.message)
+        toast.error({ title: "Error", description: err.message });
       } finally {
         this.stopLoading()
       }
@@ -90,7 +90,7 @@ export const projectStore = defineStore('projects', {
       try {
         const data = await putText(text)
       } catch (err: any) {
-        this.logError(err.message)
+        toast.error({ title: "Error", description: err.message });
       } finally {
         this.stopLoading()
       }
@@ -107,7 +107,7 @@ export const projectStore = defineStore('projects', {
         const data: ProjectDTO[] = await getProjectsOverall();
         this.projects = data;
       } catch (err: any) {
-        this.logError(err.message)
+        toast.error({ title: "Error", description: err.message });
       } finally {
         this.stopLoading()
       }
@@ -118,7 +118,7 @@ export const projectStore = defineStore('projects', {
         const data: ProjectDTO = await createProject(pj);
         this.addProject(data);
       } catch (err: any) {
-        this.logError(err.message)
+        toast.error({ title: "Error", description: err.message });
       } finally {
         this.stopLoading()
       }
@@ -135,7 +135,7 @@ export const projectStore = defineStore('projects', {
         const data: Project = await deleteProjectById(id);
         this.removeProject(id);
       } catch (err: any) {
-        this.logError(err.message)
+        toast.error({ title: "Error", description: err.message });
       } finally {
         this.stopLoading()
       }

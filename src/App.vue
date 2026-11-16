@@ -3,7 +3,7 @@ import ProgressSpinner from 'primevue/progressspinner'
 import { RouterLink, RouterView } from 'vue-router'
 import { projectStore } from './stores/project'
 import { onMounted } from 'vue';
-
+import { ToastContainer } from "vue-toastflow";
 const store = projectStore()
 function remove(id: string) {
   store.removeProjectOverall(id);
@@ -12,7 +12,6 @@ onMounted(() => {
   store.getProjectOverall()
   store.getStatiOverall()
 })
-
 </script>
 
 <template>
@@ -45,6 +44,7 @@ onMounted(() => {
   </header>
 
   <RouterView />
+  <ToastContainer />
 </template>
 
 <style scoped>
